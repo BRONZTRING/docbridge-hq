@@ -1,0 +1,29 @@
+==========================================
+
+DocBridge AI - 物理隔离清单 (Git Ignore)
+
+==========================================
+
+1. Python 环境与缓存
+
+pycache/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+2. 操作系统遗留
+
+.DS_Store
+Thumbs.db
+
+3. IDE 配置 (统帅的本地偏好不上传)
+
+.vscode/
+.idea/
+
+4. 前端 Node 模块 (为第三周 Vue3 预留)
+
+node_modules/
+dist/
