@@ -35,7 +35,6 @@ async def update_doc_status(document_id: int, status: str, summary: str = None, 
                 session.add(result)
             await session.commit()
 
-# 【全新法术】：将切碎的文本及其高维坐标，批量存入 PostgreSQL
 async def save_chunks_and_vectors(document_id: int, chunks: list[str], vectors: list[list[float]]):
     async with AsyncSessionLocal() as session:
         for i, (text_chunk, vector) in enumerate(zip(chunks, vectors)):
@@ -43,7 +42,7 @@ async def save_chunks_and_vectors(document_id: int, chunks: list[str], vectors: 
                 document_id=document_id,
                 chunk_index=i,
                 text_content=text_chunk,
-                embedding=vector # 1536维数组直接存入 pgvector 字段！
+                embedding=vector
             )
             session.add(doc_chunk)
         await session.commit()
@@ -66,7 +65,7 @@ def analyze_document_task(file_path: str, document_id: int):
         asyncio.run(update_doc_status(document_id, "failed"))
         return {"status": "error", "message": "未能提取到有效文本"}
 
-    # 2. 宏观认知 (取前 3000 字做摘要，防止超长文档撑爆摘要模型)
+    # 2. 宏观认知
     text_chunk_for_summary = text_content[:3000]
     try:
         summary_res = build_summary_chain().invoke({"text": text_chunk_for_summary})
@@ -75,24 +74,19 @@ def analyze_document_task(file_path: str, document_id: int):
         asyncio.run(update_doc_status(document_id, "failed_auth"))
         return {"status": "error", "message": f"认知链阻断: {str(e)}"}
 
-    # ==========================================
-    # 3. 【向量觉醒核心阶段】：千刀万剐与高维折叠
-    # ==========================================
+    # 3. 向量觉醒核心阶段（加装抗压护盾，防线不溃）
     try:
-        # 定义碎纸机规则：每 1000 个字符切一刀，相邻两刀保留 100 字符重叠(防断句断意)
         splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
         chunks = splitter.split_text(text_content)
         
-        # 调用大模型，将切出来的文字块化作数学坐标 (由于是并发网络请求，可能会稍耗时)
         embed_model = get_embeddings()
         vectors = embed_model.embed_documents(chunks)
         
-        # 召唤异步函数，将坐标与文字封存入库
         asyncio.run(save_chunks_and_vectors(document_id, chunks, vectors))
         
     except Exception as e:
-        # 向量化若失败（比如网络抖动），不阻断总体流程，仅记录报错
-        print(f"⚠️ [警告] 文档 {document_id} 向量化折叠失败: {str(e)}")
+        # 【核心护盾】：即使向量化网络波动，亦不阻断绿屏大捷
+        print(f"⚠️ [警告] 文档 {document_id} 向量化折叠失败（RAG提问功能可能受限）: {str(e)}")
 
     # 4. 全部大捷，标记完工
     asyncio.run(update_doc_status(document_id, "completed", summary_res, risk_res))
