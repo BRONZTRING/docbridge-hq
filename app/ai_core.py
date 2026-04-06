@@ -1,21 +1,16 @@
 import os
+from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 
-# 统帅请注意：此处需填入汝之真实大模型 API 密钥。
-# 现暂时使用占位符，待统帅日后获取到如 DeepSeek、GigaChat 或 OpenAI 的密钥后替换。
-# 若使用兼容接口，还需配置 base_url，例如：os.environ["OPENAI_API_BASE"] = "https://api.deepseek.com/v1"
-os.environ["OPENAI_API_KEY"] = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+# 【法术激活】：读取根目录的 .env 文件，将其中的机密注入系统环境变量
+load_dotenv()
 
-# 实例化大模型 (此处默认以 gpt-3.5-turbo 为例，可随时更换为更强大的模型)
-# temperature=0 代表我们不需要模型具有创造力，只需要它极其严谨地提取法律与金融事实。
+# 实例化大模型（它会自动去环境变量里寻找 OPENAI_API_KEY，无需明文写出）
 llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
 
-def build_summary_chain() -> LLMChain:
-    """
-    第一道管线：深度长文档浓缩摘要链
-    """
+def build_summary_chain():
     prompt_template = """
     统帅指令：你现在是 DocBridge AI 的首席多语种商业分析师。
     请阅读以下文档内容，并将其浓缩为一段高度精炼的摘要（不超过 300 字）。
@@ -26,13 +21,10 @@ def build_summary_chain() -> LLMChain:
 
     精炼摘要:
     """
-    prompt = PromptTemplate(template=prompt_template, input_variables=["text"])
-    return LLMChain(llm=llm, prompt=prompt)
+    prompt = PromptTemplate.from_template(prompt_template)
+    return prompt | llm | StrOutputParser()
 
-def build_risk_chain() -> LLMChain:
-    """
-    第二道管线：风险拦截雷达与合规排雷链
-    """
+def build_risk_chain():
     prompt_template = """
     统帅指令：你现在是 DocBridge AI 的首席国际法务风控官。
     请审查以下跨国合同或商业文档的内容，并运用你的专业知识，极其敏锐地提取出以下三个维度的风险点：
@@ -47,5 +39,5 @@ def build_risk_chain() -> LLMChain:
 
     风险排雷报告:
     """
-    prompt = PromptTemplate(template=prompt_template, input_variables=["text"])
-    return LLMChain(llm=llm, prompt=prompt)
+    prompt = PromptTemplate.from_template(prompt_template)
+    return prompt | llm | StrOutputParser()
