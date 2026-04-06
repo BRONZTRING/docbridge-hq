@@ -1,6 +1,7 @@
 import os
 import aiofiles
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from .worker import analyze_document_task
 
 # 初始化 FastAPI 实例
 app = FastAPI(
@@ -9,7 +10,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# 划定物理存储隔离区（在根目录下自动创建 uploads 文件夹）
+# 划定物理存储隔离区
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
@@ -26,7 +27,7 @@ async def root_gateway():
 @app.post("/api/v1/upload/")
 async def upload_document(file: UploadFile = File(...)):
     """
-    流式文件上传接口 (异步解耦，内存保护)
+    流式文件上传，并全自动触发异步认知链
     """
     if not file.filename:
         raise HTTPException(status_code=400, detail="未检测到文件名")
@@ -34,19 +35,22 @@ async def upload_document(file: UploadFile = File(...)):
     # 确立文件最终落地的物理坐标
     file_path = os.path.join(UPLOAD_DIR, file.filename)
 
-    # 施展流式异步写入阵法
+    # 1. 施展流式异步写入阵法
     try:
-        # 'wb' 意为以二进制写入模式打开
         async with aiofiles.open(file_path, 'wb') as out_file:
-            # 每次仅将 1MB (1024*1024 bytes) 吸入内存，写完再吸，防线坚不可摧！
             while content := await file.read(1024 * 1024):
                 await out_file.write(content)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"文件写入失败: {str(e)}")
 
+    # 2. 下达异步指令，唤醒劳工大营 (将物理路径传给 Celery)
+    # delay 是 Celery 的法咒，意为“异步发送，不必等它做完”
+    task = analyze_document_task.delay(file_path)
+
     return {
         "status": "success",
         "filename": file.filename,
         "saved_path": file_path,
-        "message": "统帅，文件流式接收完毕，内存防线稳固！"
+        "task_id": task.id,
+        "message": "统帅，文件落盘完毕。已向劳工大营下达认知解析指令！"
     }
