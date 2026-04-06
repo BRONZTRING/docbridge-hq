@@ -1,14 +1,25 @@
 import os
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-# 【法术激活】：读取根目录的 .env 文件，将其中的机密注入系统环境变量
+# 读取隐身斗篷中的机密 (自动加载 GOOGLE_API_KEY)
 load_dotenv()
 
-# 实例化大模型（它会自动去环境变量里寻找 OPENAI_API_KEY，无需明文写出）
-llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+# 1. 文本分析主炮：全面换装 2026 年最新 3.1 世代！
+# 这里使用的是极速轻骑兵，适合日常秒级排雷
+llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-live-preview", temperature=0)
+
+# 若统帅处理几十页以上的艰深俄文文献，可注释掉上面那行，改用下面这把巅峰重剑：
+# llm = ChatGoogleGenerativeAI(model="gemini-3.1-pro-preview", temperature=0)
+
+# 2. 高维空间折叠枪：谷歌原生 768 维向量模型
+embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+
+def get_embeddings():
+    """向外界提供折叠枪"""
+    return embeddings
 
 def build_summary_chain():
     prompt_template = """
