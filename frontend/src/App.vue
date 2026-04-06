@@ -44,14 +44,7 @@
             <el-table-column prop="created_at" label="摄入时间戳" width="180" />
             <el-table-column label="战略指令" width="120">
               <template #default="scope">
-                <!-- 【重大升级】：按钮解锁，点击触发调阅 -->
-                <el-button 
-                  link 
-                  type="primary" 
-                  size="small"
-                  :disabled="scope.row.status !== 'completed'"
-                  @click="viewIntelligence(scope.row)"
-                >
+                <el-button link type="primary" size="small" :disabled="scope.row.status !== 'completed'" @click="viewIntelligence(scope.row)">
                   调阅情报
                 </el-button>
               </template>
@@ -59,24 +52,52 @@
           </el-table>
         </el-card>
 
-        <!-- 【全新兵器】：高维情报展示弹窗 -->
-        <el-dialog v-model="dialogVisible" :title="'情报调阅: ' + currentDocName" width="60%">
-          <div v-if="currentResult">
-            <h3 style="color: #409eff;"><el-icon><DataAnalysis /></el-icon> 核心摘要 (Summary)</h3>
-            <p style="line-height: 1.6; color: #303133;">{{ currentResult.summary }}</p>
+        <!-- 【震撼升级】：带页签的全息审讯弹窗 -->
+        <el-dialog v-model="dialogVisible" :title="'卷宗调阅: ' + currentDocName" width="65%" top="5vh">
+          <el-tabs v-model="activeTab" class="custom-tabs">
             
-            <el-divider />
-            
-            <h3 style="color: #f56c6c;"><el-icon><WarningFilled /></el-icon> 风险雷达 (Risk Points)</h3>
-            <div style="background-color: #fef0f0; padding: 15px; border-radius: 4px; color: #f56c6c; white-space: pre-wrap; line-height: 1.6;">
-              {{ currentResult.risk_points.raw_report || currentResult.risk_points }}
-            </div>
-          </div>
-          <template #footer>
-            <span class="dialog-footer">
-              <el-button type="primary" @click="dialogVisible = false">关闭卷宗</el-button>
-            </span>
-          </template>
+            <el-tab-pane label="核心简报" name="summary">
+              <div v-if="currentResult" class="scroll-pane">
+                <h3 style="color: #409eff;"><el-icon><DataAnalysis /></el-icon> 核心摘要 (Summary)</h3>
+                <p style="line-height: 1.6; color: #303133;">{{ currentResult.summary }}</p>
+                <el-divider />
+                <h3 style="color: #f56c6c;"><el-icon><WarningFilled /></el-icon> 风险雷达 (Risk Points)</h3>
+                <div class="risk-box">
+                  {{ currentResult.risk_points.raw_report || currentResult.risk_points }}
+                </div>
+              </div>
+            </el-tab-pane>
+
+            <el-tab-pane label="RAG 审讯室" name="chat">
+              <div class="chat-container">
+                <div class="chat-history">
+                  <div v-if="chatHistory.length === 0" class="empty-chat">
+                    统帅，大模型已加载完毕。您可以就这份文献提出任何问题。
+                  </div>
+                  <div v-for="(msg, index) in chatHistory" :key="index" :class="['chat-bubble-wrapper', msg.role]">
+                    <div class="chat-bubble">
+                      <span v-if="msg.role === 'ai'" style="font-weight:bold; color: #409eff; display:block; margin-bottom:5px;">[AI 参谋]</span>
+                      <span v-else style="font-weight:bold; color: #67c23a; display:block; margin-bottom:5px;">[统帅]</span>
+                      <div style="white-space: pre-wrap; line-height: 1.5;">{{ msg.content }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="chat-input-area">
+                  <el-input 
+                    v-model="chatInput" 
+                    placeholder="输入统帅指令 (支持中俄英日)... 按回车发送" 
+                    @keyup.enter="sendChatMessage"
+                    :disabled="isChatting"
+                  >
+                    <template #append>
+                      <el-button @click="sendChatMessage" :loading="isChatting" type="primary">发送</el-button>
+                    </template>
+                  </el-input>
+                </div>
+              </div>
+            </el-tab-pane>
+
+          </el-tabs>
         </el-dialog>
 
       </el-main>
@@ -95,10 +116,15 @@ const tableData = ref([])
 const isUploading = ref(false)
 let pollingTimer = null
 
-// 弹窗状态管理
 const dialogVisible = ref(false)
+const activeTab = ref('summary')
 const currentResult = ref(null)
+const currentDocId = ref(null)
 const currentDocName = ref("")
+
+const chatHistory = ref([])
+const chatInput = ref("")
+const isChatting = ref(false)
 
 const fetchDocuments = async () => {
   try {
@@ -124,9 +150,12 @@ const customUpload = async (options) => {
   }
 }
 
-// 【新增核心动作】：向网关索要详细报告
 const viewIntelligence = async (row) => {
+  currentDocId.value = row.id
   currentDocName.value = row.filename
+  activeTab.value = 'summary' 
+  chatHistory.value = [] 
+  
   try {
     const res = await axios.get(`${API_BASE_URL}/documents/${row.id}/result`)
     if (res.data.status === 'success') {
@@ -138,8 +167,28 @@ const viewIntelligence = async (row) => {
   }
 }
 
+const sendChatMessage = async () => {
+  if (!chatInput.value.trim() || isChatting.value) return;
+
+  const query = chatInput.value
+  chatHistory.value.push({ role: 'user', content: query })
+  chatInput.value = ""
+  isChatting.value = true
+
+  try {
+    const res = await axios.post(`${API_BASE_URL}/documents/${currentDocId.value}/chat`, { query: query })
+    if (res.data.status === 'success') {
+      chatHistory.value.push({ role: 'ai', content: res.data.answer })
+    }
+  } catch (error) {
+    chatHistory.value.push({ role: 'ai', content: '【通讯中断】未能获取大模型响应，请检查网关。' })
+  } finally {
+    isChatting.value = false
+  }
+}
+
 const formatStatus = (status) => {
-  const map = { 'uploaded': '待命', 'processing': '劳工解析中...', 'completed': '认知完成', 'failed_auth': '密钥阻断 (需真密钥)', 'failed': '解析溃散' }
+  const map = { 'uploaded': '待命', 'processing': '劳工解析中...', 'completed': '认知完成', 'failed_auth': '阻断(需核查日志)', 'failed': '解析溃散' }
   return map[status] || status
 }
 
@@ -159,7 +208,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* 保持原有样式不变 */
 .layout-container { height: 100vh; width: 100vw; }
 .aside-menu { background-color: #2c3e50; color: white; }
 .logo-box { height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-bottom: 1px solid #1a252f; background-color: #1a252f; }
@@ -170,4 +218,18 @@ onUnmounted(() => {
 .header-right { display: flex; align-items: center; }
 .main-content { background-color: #f0f2f5; padding: 20px; }
 .card-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+
+.scroll-pane { max-height: 60vh; overflow-y: auto; padding-right: 10px; }
+.risk-box { background-color: #fef0f0; padding: 15px; border-radius: 4px; color: #f56c6c; white-space: pre-wrap; line-height: 1.6; }
+
+.chat-container { display: flex; flex-direction: column; height: 60vh; border: 1px solid #ebeef5; border-radius: 4px; background-color: #fafafa;}
+.chat-history { flex: 1; overflow-y: auto; padding: 20px; }
+.empty-chat { text-align: center; color: #909399; margin-top: 50px; font-style: italic; }
+.chat-bubble-wrapper { margin-bottom: 15px; display: flex; }
+.chat-bubble-wrapper.user { justify-content: flex-end; }
+.chat-bubble-wrapper.ai { justify-content: flex-start; }
+.chat-bubble { max-width: 80%; padding: 12px 16px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.chat-bubble-wrapper.user .chat-bubble { background-color: #e1f3d8; border-bottom-right-radius: 0; }
+.chat-bubble-wrapper.ai .chat-bubble { background-color: #fff; border-bottom-left-radius: 0; border: 1px solid #ebeef5;}
+.chat-input-area { padding: 15px; background-color: #fff; border-top: 1px solid #ebeef5; }
 </style>

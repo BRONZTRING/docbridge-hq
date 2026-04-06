@@ -4,15 +4,11 @@ from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmb
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-# 读取隐身斗篷中的机密 (自动加载 GOOGLE_API_KEY)
+# 读取隐身斗篷中的机密
 load_dotenv()
 
-# 1. 文本分析主炮：全面换装 2026 年最新 3.1 世代！
-# 这里使用的是极速轻骑兵，适合日常秒级排雷
-llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-live-preview", temperature=0)
-
-# 若统帅处理几十页以上的艰深俄文文献，可注释掉上面那行，改用下面这把巅峰重剑：
-# llm = ChatGoogleGenerativeAI(model="gemini-3.1-pro-preview", temperature=0)
+# 1. 文本分析主炮：换装全面解禁且性能彪悍的 2.5 世代旗舰
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
 
 # 2. 高维空间折叠枪：谷歌原生 768 维向量模型
 embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
@@ -49,6 +45,27 @@ def build_risk_chain():
     {text}
 
     风险排雷报告:
+    """
+    prompt = PromptTemplate.from_template(prompt_template)
+    return prompt | llm | StrOutputParser()
+
+# =========================================================
+# 【全新军火】：基于切片的问答管线
+# =========================================================
+def build_qa_chain():
+    prompt_template = """
+    统帅指令：你现在是 DocBridge AI 的首席情报官。
+    请根据以下提取的【文档参考片段】，回答统帅的【提问】。
+    如果片段中没有相关信息，请如实回答“根据当前文档片段，未能找到相关情报”，绝不能胡编乱造。
+    无论提问或片段是什么语言，请一律用【中文】进行专业、严谨的回答。
+
+    文档参考片段:
+    {context}
+
+    统帅提问:
+    {question}
+
+    情报回复:
     """
     prompt = PromptTemplate.from_template(prompt_template)
     return prompt | llm | StrOutputParser()
