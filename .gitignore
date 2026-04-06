@@ -27,3 +27,6 @@ Thumbs.db
 
 node_modules/
 dist/
+
+# 5. 物理存储隔离区 (绝不上云)
+uploads/
