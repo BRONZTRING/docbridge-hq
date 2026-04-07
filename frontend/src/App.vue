@@ -61,18 +61,14 @@
                 <p style="line-height: 1.6; color: #303133;">{{ currentResult.summary }}</p>
                 <el-divider />
                 <h3 style="color: #f56c6c;"><el-icon><WarningFilled /></el-icon> 风险雷达 (Risk Points)</h3>
-                <div class="risk-box">
-                  {{ currentResult.risk_points.raw_report || currentResult.risk_points }}
-                </div>
+                <div class="risk-box">{{ currentResult.risk_points.raw_report || currentResult.risk_points }}</div>
               </div>
             </el-tab-pane>
 
             <el-tab-pane label="RAG 审讯室" name="chat">
               <div class="chat-container">
                 <div class="chat-history">
-                  <div v-if="chatHistory.length === 0" class="empty-chat">
-                    统帅，大模型已加载完毕。您可以就这份文献提出任何问题。
-                  </div>
+                  <div v-if="chatHistory.length === 0" class="empty-chat">统帅，大模型已加载完毕。您可以就这份文献提出任何问题。</div>
                   <div v-for="(msg, index) in chatHistory" :key="index" :class="['chat-bubble-wrapper', msg.role]">
                     <div class="chat-bubble">
                       <span v-if="msg.role === 'ai'" style="font-weight:bold; color: #409eff; display:block; margin-bottom:5px;">[AI 参谋]</span>
@@ -82,26 +78,15 @@
                   </div>
                 </div>
                 <div class="chat-input-area">
-                  <el-input 
-                    v-model="chatInput" 
-                    placeholder="输入统帅指令 (支持中俄英日)... 按回车发送" 
-                    @keyup.enter="sendChatMessage"
-                    :disabled="isChatting"
-                  >
-                    <template #append>
-                      <el-button @click="sendChatMessage" :loading="isChatting" type="primary">发送</el-button>
-                    </template>
+                  <el-input v-model="chatInput" placeholder="输入统帅指令 (支持中俄英日)... 按回车发送" @keyup.enter="sendChatMessage" :disabled="isChatting">
+                    <template #append><el-button @click="sendChatMessage" :loading="isChatting" type="primary">发送</el-button></template>
                   </el-input>
                 </div>
               </div>
             </el-tab-pane>
-
           </el-tabs>
         </el-dialog>
-
-        <!-- 悬浮战报视窗插件 -->
         <LogViewer />
-
       </el-main>
     </el-container>
   </el-container>
@@ -133,9 +118,7 @@ const fetchDocuments = async () => {
   try {
     const res = await axios.get(`${API_BASE_URL}/documents/`)
     if (res.data.status === 'success') tableData.value = res.data.data
-  } catch (error) {
-    console.error("雷达连接失败:", error)
-  }
+  } catch (error) {}
 }
 
 const customUpload = async (options) => {
@@ -148,46 +131,34 @@ const customUpload = async (options) => {
     fetchDocuments()
   } catch (error) {
     ElMessage.error('摄入失败，防线可能受损！')
-  } finally {
-    isUploading.value = false
-  }
+  } finally { isUploading.value = false }
 }
 
 const viewIntelligence = async (row) => {
-  currentDocId.value = row.id
-  currentDocName.value = row.filename
-  activeTab.value = 'summary' 
-  chatHistory.value = [] 
-  
+  currentDocId.value = row.id; currentDocName.value = row.filename; activeTab.value = 'summary'; chatHistory.value = []
   try {
     const res = await axios.get(`${API_BASE_URL}/documents/${row.id}/result`)
-    if (res.data.status === 'success') {
-      currentResult.value = res.data
-      dialogVisible.value = true
-    }
-  } catch (error) {
-    ElMessage.error('调阅失败，情报可能尚未落盘或已损坏。')
-  }
+    if (res.data.status === 'success') { currentResult.value = res.data; dialogVisible.value = true }
+  } catch (error) { ElMessage.error('调阅失败。') }
 }
 
 const sendChatMessage = async () => {
   if (!chatInput.value.trim() || isChatting.value) return;
-
   const query = chatInput.value
+  
+  // 【战术升级】：在推入新问题前，提取现有历史记录打包发送
+  const historyToSend = chatHistory.value.map(item => ({ role: item.role, content: item.content }))
+  
   chatHistory.value.push({ role: 'user', content: query })
-  chatInput.value = ""
-  isChatting.value = true
-
+  chatInput.value = ""; isChatting.value = true
   try {
-    const res = await axios.post(`${API_BASE_URL}/documents/${currentDocId.value}/chat`, { query: query })
-    if (res.data.status === 'success') {
-      chatHistory.value.push({ role: 'ai', content: res.data.answer })
-    }
-  } catch (error) {
-    chatHistory.value.push({ role: 'ai', content: '【通讯中断】未能获取大模型响应，请检查网关。' })
-  } finally {
-    isChatting.value = false
-  }
+    const res = await axios.post(`${API_BASE_URL}/documents/${currentDocId.value}/chat`, { 
+        query: query,
+        history: historyToSend  // 发送历史矩阵
+    })
+    if (res.data.status === 'success') chatHistory.value.push({ role: 'ai', content: res.data.answer })
+  } catch (error) { chatHistory.value.push({ role: 'ai', content: '【通讯中断】未能获取大模型响应。' }) }
+  finally { isChatting.value = false }
 }
 
 const formatStatus = (status) => {
@@ -200,14 +171,8 @@ const getStatusType = (status) => {
   return map[status] || 'info'
 }
 
-onMounted(() => {
-  fetchDocuments()
-  pollingTimer = setInterval(fetchDocuments, 5000)
-})
-
-onUnmounted(() => {
-  if (pollingTimer) clearInterval(pollingTimer)
-})
+onMounted(() => { fetchDocuments(); pollingTimer = setInterval(fetchDocuments, 5000) })
+onUnmounted(() => { if (pollingTimer) clearInterval(pollingTimer) })
 </script>
 
 <style scoped>
@@ -221,10 +186,8 @@ onUnmounted(() => {
 .header-right { display: flex; align-items: center; }
 .main-content { background-color: #f0f2f5; padding: 20px; }
 .card-header { display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
-
 .scroll-pane { max-height: 60vh; overflow-y: auto; padding-right: 10px; }
 .risk-box { background-color: #fef0f0; padding: 15px; border-radius: 4px; color: #f56c6c; white-space: pre-wrap; line-height: 1.6; }
-
 .chat-container { display: flex; flex-direction: column; height: 60vh; border: 1px solid #ebeef5; border-radius: 4px; background-color: #fafafa;}
 .chat-history { flex: 1; overflow-y: auto; padding: 20px; }
 .empty-chat { text-align: center; color: #909399; margin-top: 50px; font-style: italic; }

@@ -1,5 +1,5 @@
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 4889.73it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2825.65it/s]
 [1mXLMRobertaModel LOAD REPORT[0m from: sentence-transformers/paraphrase-multilingual-mpnet-base-v2
 Key                     | Status     |  | 
 ------------------------+------------+--+-
@@ -10,10 +10,10 @@ Notes:
  
  -------------- celery@LAPTOP-T6SAPHC1 v5.6.3 (recovery)
 --- ***** ----- 
--- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39 2026-04-07 12:46:15
+-- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39 2026-04-07 19:37:47
 - *** --- * --- 
 - ** ---------- [config]
-- ** ---------- .> app:         docbridge_worker:0x77a6cdb6e390
+- ** ---------- .> app:         docbridge_worker:0x75a9993c5370
 - ** ---------- .> transport:   redis://localhost:6379/0
 - ** ---------- .> results:     redis://localhost:6379/0
 - *** --- * --- .> concurrency: 20 (solo)
@@ -26,199 +26,32 @@ Notes:
 [tasks]
   . analyze_document_task
 
-[2026-04-07 12:46:15,769: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2026-04-07 12:46:15,776: INFO/MainProcess] mingle: searching for neighbors
-[2026-04-07 12:46:16,786: INFO/MainProcess] mingle: all alone
-[2026-04-07 12:46:16,801: INFO/MainProcess] celery@LAPTOP-T6SAPHC1 ready.
-[2026-04-07 12:46:17,445: INFO/MainProcess] Task analyze_document_task[71fefdd2-3479-4ca4-b729-c88e26372ea1] received
-[2026-04-07 12:46:17,468: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,470: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,472: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,474: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,475: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,477: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,480: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,482: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,483: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,485: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,487: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,488: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,490: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,491: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,493: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,497: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,499: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,502: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,504: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,507: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,508: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,510: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,511: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,513: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,515: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,517: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,519: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,521: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,523: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,524: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,526: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,527: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,529: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,532: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,534: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,536: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,538: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,540: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,541: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,543: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,545: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,546: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,548: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,550: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,554: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,556: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,558: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,560: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,562: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,564: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,565: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,567: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,568: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,570: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,573: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,575: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,577: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,579: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,581: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,583: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,585: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,587: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,588: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,590: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,592: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,593: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,594: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,595: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,597: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,599: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,600: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,603: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,605: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,607: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,608: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,609: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,611: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,613: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,615: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,617: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,619: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,622: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,624: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,627: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,629: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,630: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,633: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,634: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,636: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,637: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,640: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,641: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,643: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,644: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,645: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,646: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,648: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,650: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,651: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,653: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,654: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,656: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,657: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,659: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,661: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,663: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,665: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,666: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,668: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,671: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,673: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,674: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,678: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,678: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,680: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,682: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,683: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,685: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,686: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,687: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,688: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,690: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,690: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,691: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,693: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,695: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,696: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,698: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,700: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,701: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,703: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,705: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,708: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,708: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,710: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,712: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,714: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,808: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,810: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,811: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,812: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,813: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,814: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,815: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,816: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,817: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,818: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,820: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,821: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,823: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,823: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,824: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,825: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:17,891: WARNING/MainProcess] Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
-[2026-04-07 12:46:24,555: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
-[2026-04-07 12:46:28,750: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
-[2026-04-07 12:46:31,431: INFO/MainProcess] Task analyze_document_task[71fefdd2-3479-4ca4-b729-c88e26372ea1] succeeded in 13.848052441999243s: {'status': 'success', 'summary': 'DocBridge AI 的终极开发大纲与战略路线图旨在成为中、日、俄、英四语商业情报中枢，通过数学底盘与国关视野将复杂文档转化为可行动指令，解决出海企业和Web3项目中的合规与信任问题。系统采用异步认知管线架构，技术栈包括FastAPI、PostgreSQL、Redis、Celery、LangChain等。核心功能涵盖多模态摄取、递归摘要、风险拦截、实时RAG问答和安全脱敏。三周物理冲刺协议分为三阶段：Week 1构建无AI参与的物理闭环，Week 2实现四语种文档AI解析与异步化，Week 3完成MVP版本部署。当前重点是Week 1的基础架构搭建，确保数据库、异步调用和用户会话管理等功能顺利实施。', 'risk_points': '### 风险排雷报告
+[2026-04-07 19:37:47,120: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2026-04-07 19:37:47,122: INFO/MainProcess] mingle: searching for neighbors
+[2026-04-07 19:37:48,131: INFO/MainProcess] mingle: all alone
+[2026-04-07 19:37:48,149: INFO/MainProcess] celery@LAPTOP-T6SAPHC1 ready.
+[2026-04-07 19:37:48,150: INFO/MainProcess] Task analyze_document_task[ab52d69b-c5c3-4850-ab7e-f4ee7c2df91d] received
+[2026-04-07 19:37:48,186: INFO/MainProcess] Task analyze_document_task[ab52d69b-c5c3-4850-ab7e-f4ee7c2df91d] succeeded in 0.03596552899762173s: {'status': 'error', 'message': '物理穿透 PDF 失败: No /Root object! - Is this really a PDF?'}
+[2026-04-07 19:37:59,130: INFO/MainProcess] Task analyze_document_task[f01ae135-20eb-46be-8f94-639e6f581a22] received
+[2026-04-07 19:37:59,167: INFO/MainProcess] Task analyze_document_task[f01ae135-20eb-46be-8f94-639e6f581a22] succeeded in 0.03672837199701462s: {'status': 'error', 'message': '物理穿透 PDF 失败: No /Root object! - Is this really a PDF?'}
+[2026-04-07 19:39:58,043: INFO/MainProcess] Task analyze_document_task[ff60b31b-da99-4ec8-aa5c-6467880201e9] received
+[2026-04-07 19:40:02,760: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-04-07 19:40:07,246: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-04-07 19:40:09,242: INFO/MainProcess] Task analyze_document_task[ff60b31b-da99-4ec8-aa5c-6467880201e9] succeeded in 11.225957822000055s: {'status': 'success', 'summary': '文档概述了远东"曙光-3"核聚变实验堆联合开发框架协议的关键条款。项目总投资为80亿人民币，中方出资65%，俄方出资35%。违约方需按日支付0.05%的滞纳金，逾期45天以上需支付项目总额10%的惩罚性违约金。争议解决通过斯德哥尔摩国际仲裁法院，适用瑞士联邦法律。此协议明确了资金与股权结构、违约责任及争议解决机制。', 'risk_points': '风险排雷报告:
 
-#### 1. 违约责任
+1. **违约责任**
+   - **违约金条款**：根据第二条，任何一方未能按期履约，须支付应付款项 0.05% 的滞纳金。若逾期超过 45 天，违约方需支付相当于项目总额 10% 的惩罚性违约金。此条款明确了违约责任，但高额的惩罚性违约金可能对违约方构成较大压力，需谨慎评估违约风险。
+   
+2. **管辖地与争议解决**
+   - **争议解决**：双方同意将争议提交至斯德哥尔摩国际仲裁法院解决。此条款明确了争议解决的机构，但需注意斯德哥尔摩国际仲裁法院的程序复杂性和可能的费用问题。
+   - **法律适用**：本协议适用瑞士联邦法律，排除任何冲突法原则的适用。此条款可能对双方的法律适用产生限制，需确保双方对此条款无异议，并考虑可能的法律冲突问题。
 
-文档中未明确提及具体的违约责任条款或惩罚机制。这可能导致在发生违约时，双方在赔偿金额或方式上产生争议，从而影响合同的执行效率和双方权益的保护。
+3. **潜在陷阱**
+   - **资金与股权结构**：中方以技术与核心组件入股，占总额的 65%，俄方以土地、配套电网及基础工程材料入股，占总额的 35%。需注意，技术与核心组件的评估和交付可能存在不确定性，且土地、配套电网及基础工程材料的评估和交付也可能存在风险。
+   - **违约金条款**：高额的惩罚性违约金可能对违约方构成较大压力，需谨慎评估违约风险。
+   - **法律适用与争议解决**：适用瑞士联邦法律和提交斯德哥尔摩国际仲裁法院可能对双方产生不利影响，需确保双方对此条款无异议，并考虑可能的法律冲突问题。
 
-#### 2. 管辖地与争议解决
-
-文档中未明确提及适用哪个国家的法律或在何地进行仲裁或诉讼。这可能导致在发生商业纠纷时，双方在法律适用和争议解决地的选择上产生分歧，增加解决争议的复杂性和成本。
-
-#### 3. 潜在陷阱
-
-- **条款模糊表述**：文档中提到“降维打击：利用数学底盘与国关视野，将复杂的法律、金融、Web3 文档转化为可行动的决策指令。”这一表述较为模糊，未具体说明如何转化为可行动的决策指令，可能存在对己方不利的解释空间。
-- **技术实现细节**：文档中提到“递归摘要链：深度长文档浓缩，采用 MapReduce 思想，分块摘要后再聚合。”这一技术实现细节较为复杂，但未明确说明如何处理摘要的准确性和完整性，可能存在技术实现上的风险。
-- **安全脱敏**：文档中提到“安全脱敏：隐私保护，在调用 API 前，利用正则过滤敏感姓名、金额、物理地址。”这一措施虽然有助于保护隐私，但未明确说明如何处理其他敏感信息，可能存在信息泄露的风险。
-
-综上所述，建议在合同中明确违约责任条款、争议解决地和适用法律，以及技术实现的具体细节和安全措施，以降低潜在风险。'}
-[2026-04-07 12:50:45,329: INFO/MainProcess] Task analyze_document_task[be57989d-ee36-456a-b5b1-c52427895a47] received
-[2026-04-07 12:50:54,918: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
-[2026-04-07 12:51:07,604: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
-[2026-04-07 12:51:12,863: INFO/MainProcess] Task analyze_document_task[be57989d-ee36-456a-b5b1-c52427895a47] succeeded in 27.39717260100042s: {'status': 'success', 'summary': '该文档为莫斯科城市师范大学附属学院历史系学生编写的英语语法教学指南，共44页。内容包括针对不同水平学生的语法练习，分为初级、基础初级和高级三个部分。练习基于历史和文化文本，旨在帮助学生掌握英语语法和词汇知识，同时拓宽历史视野。该指南适用于历史系和区域研究系学生，以及对英语和历史感兴趣的其他学生。文档涵盖从威廉·特 Tell 的传说到不同历史阶段的练习，旨在提高学生在特定目的下学习英语语法的能力。', 'risk_points': '风险排雷报告：
-
-1. **违约责任**：
-   - 该文档为一本英语语法教学手册，未涉及任何合同或商业条款，因此不存在违约责任、赔偿条款或惩罚机制的相关内容。
-
-2. **管辖地与争议解决**：
-   - 该文档为一本教学手册，未涉及任何法律适用或争议解决条款，因此不存在指定管辖地或争议解决方式的相关内容。
-
-3. **潜在陷阱**：
-   - 该文档为一本英语语法教学手册，未包含任何对己方明显不利的隐蔽条件或模糊表述。文档内容清晰，未发现任何潜在风险点。
-
-总结：该文档为一本英语语法教学手册，不涉及合同或商业条款，因此无需关注违约责任、管辖地与争议解决以及潜在陷阱等风险点。'}
+以上是根据文档内容提取的三维度风险，建议在项目执行过程中密切关注这些风险点，确保项目的顺利进行。'}
 
 worker: Hitting Ctrl+C again will initiate cold shutdown, terminating all running tasks!
 
