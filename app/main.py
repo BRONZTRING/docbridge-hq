@@ -110,7 +110,7 @@ async def chat_with_document(document_id: int, request: ChatRequest, db: AsyncSe
 
         # 4. 召唤大模型作答
         qa_chain = build_qa_chain()
-        answer = qa_chain.invoke({"context": context, "question": query_text})
+        answer = await qa_chain.ainvoke({"context": context, "question": query_text})
 
         return {"status": "success", "answer": answer}
         

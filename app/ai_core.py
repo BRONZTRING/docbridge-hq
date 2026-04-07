@@ -1,17 +1,20 @@
 import os
 from dotenv import load_dotenv
-from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
+# 引入本地开源折叠枪
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-# 读取隐身斗篷中的机密 (自动加载 GOOGLE_API_KEY)
+# 读取隐身斗篷中的机密
 load_dotenv()
 
-# 【核心换装】：使用全面解禁且性能卓越的 2.5 世代旗舰！
+# 1. 文本主炮：继续白嫖谷歌的 2.5 世代极速旗舰
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
 
-# 高维空间折叠枪：谷歌原生 768 维向量模型
-embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+# 2. 高维折叠枪：彻底换装本地 1GB 大小的多语种开源神器！
+# (首次运行时，它会在后台自动下载大约 1.1GB 的模型文件，请耐心等待)
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-mpnet-base-v2")
 
 def get_embeddings():
     """向外界提供折叠枪"""
