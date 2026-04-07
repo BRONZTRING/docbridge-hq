@@ -1,5 +1,5 @@
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2823.44it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights:  70%|███████   | 140/199 [00:00<00:00, 1383.67it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 1526.74it/s]
 [1mXLMRobertaModel LOAD REPORT[0m from: sentence-transformers/paraphrase-multilingual-mpnet-base-v2
 Key                     | Status     |  | 
 ------------------------+------------+--+-
@@ -7,411 +7,990 @@ embeddings.position_ids | UNEXPECTED |  |
 
 Notes:
 - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
-INFO:     Started server process [52383]
+INFO:     Started server process [60087]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-2026-04-07 21:57:32,160 INFO sqlalchemy.engine.Engine select pg_catalog.version()
-2026-04-07 21:57:32,160 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-04-07 21:57:32,162 INFO sqlalchemy.engine.Engine select current_schema()
-2026-04-07 21:57:32,162 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-04-07 21:57:32,164 INFO sqlalchemy.engine.Engine show standard_conforming_strings
-2026-04-07 21:57:32,164 INFO sqlalchemy.engine.Engine [raw sql] ()
-2026-04-07 21:57:32,167 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:57:32,175 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+INFO:     127.0.0.1:50278 - "OPTIONS /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:31:29,496 INFO sqlalchemy.engine.Engine select pg_catalog.version()
+2026-04-07 22:31:29,496 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-04-07 22:31:29,503 INFO sqlalchemy.engine.Engine select current_schema()
+2026-04-07 22:31:29,503 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-04-07 22:31:29,504 INFO sqlalchemy.engine.Engine show standard_conforming_strings
+2026-04-07 22:31:29,504 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-04-07 22:31:29,505 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:31:29,511 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:57:32,175 INFO sqlalchemy.engine.Engine [generated in 0.00023s] ('admin',)
-2026-04-07 21:57:32,381 INFO sqlalchemy.engine.Engine INSERT INTO users (username, hashed_password) VALUES ($1::VARCHAR, $2::VARCHAR) RETURNING users.id, users.created_at
-2026-04-07 21:57:32,381 INFO sqlalchemy.engine.Engine [generated in 0.00022s] ('admin', '$2b$12$wReJoCYDCoBvPQ8fxaGPBu8SAbuPlri.OGzG6fk/F071PITt3715G')
-2026-04-07 21:57:32,387 INFO sqlalchemy.engine.Engine COMMIT
-INFO:     127.0.0.1:40570 - "POST /api/v1/auth/register HTTP/1.1" 200 OK
-2026-04-07 21:57:38,058 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:57:38,059 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
-FROM users 
-WHERE users.username = $1::VARCHAR
-2026-04-07 21:57:38,059 INFO sqlalchemy.engine.Engine [cached since 5.884s ago] ('admin',)
-INFO:     127.0.0.1:51264 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
-2026-04-07 21:57:38,254 INFO sqlalchemy.engine.Engine ROLLBACK
-INFO:     127.0.0.1:51264 - "OPTIONS /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:57:38,317 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:57:38,317 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
-FROM users 
-WHERE users.username = $1::VARCHAR
-2026-04-07 21:57:38,317 INFO sqlalchemy.engine.Engine [cached since 6.142s ago] ('admin',)
-2026-04-07 21:57:38,322 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:31:29,511 INFO sqlalchemy.engine.Engine [generated in 0.00014s] ('admin',)
+2026-04-07 22:31:29,516 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:57:38,322 INFO sqlalchemy.engine.Engine [generated in 0.00035s] (1,)
-INFO:     127.0.0.1:51264 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:57:38,328 INFO sqlalchemy.engine.Engine ROLLBACK
-INFO:     127.0.0.1:51272 - "WebSocket /api/v1/ws/logs" [accepted]
+2026-04-07 22:31:29,516 INFO sqlalchemy.engine.Engine [generated in 0.00013s] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:31:29,518 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:50294 - "WebSocket /api/v1/ws/logs" [accepted]
 INFO:     connection open
-2026-04-07 21:57:43,265 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:57:43,266 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:31:34,400 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:31:34,401 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:57:43,266 INFO sqlalchemy.engine.Engine [cached since 11.09s ago] ('admin',)
-2026-04-07 21:57:43,269 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:31:34,401 INFO sqlalchemy.engine.Engine [cached since 4.89s ago] ('admin',)
+2026-04-07 22:31:34,404 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:57:43,269 INFO sqlalchemy.engine.Engine [cached since 4.947s ago] (1,)
-INFO:     127.0.0.1:51264 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:57:43,271 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:57:48,227 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:57:48,227 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:31:34,404 INFO sqlalchemy.engine.Engine [cached since 4.888s ago] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:31:34,406 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:31:39,337 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:31:39,337 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:57:48,227 INFO sqlalchemy.engine.Engine [cached since 16.05s ago] ('admin',)
-2026-04-07 21:57:48,230 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:31:39,337 INFO sqlalchemy.engine.Engine [cached since 9.826s ago] ('admin',)
+2026-04-07 22:31:39,339 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:57:48,230 INFO sqlalchemy.engine.Engine [cached since 9.908s ago] (1,)
-INFO:     127.0.0.1:51264 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:57:48,231 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:57:53,152 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:57:53,152 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:31:39,339 INFO sqlalchemy.engine.Engine [cached since 9.824s ago] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:31:39,340 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:31:44,258 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:31:44,259 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:57:53,152 INFO sqlalchemy.engine.Engine [cached since 20.98s ago] ('admin',)
-2026-04-07 21:57:53,154 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:31:44,259 INFO sqlalchemy.engine.Engine [cached since 14.75s ago] ('admin',)
+2026-04-07 22:31:44,260 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:57:53,154 INFO sqlalchemy.engine.Engine [cached since 14.83s ago] (1,)
-INFO:     127.0.0.1:51264 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:57:53,155 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:57:58,297 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:57:58,298 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:31:44,260 INFO sqlalchemy.engine.Engine [cached since 14.74s ago] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:31:44,261 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:31:49,310 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:31:49,310 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:57:58,298 INFO sqlalchemy.engine.Engine [cached since 26.12s ago] ('admin',)
-2026-04-07 21:57:58,300 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:31:49,310 INFO sqlalchemy.engine.Engine [cached since 19.67s ago] ('admin',)
+2026-04-07 22:31:49,312 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:57:58,300 INFO sqlalchemy.engine.Engine [cached since 19.98s ago] (1,)
-INFO:     127.0.0.1:41636 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:57:58,302 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:03,416 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:03,417 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:31:49,313 INFO sqlalchemy.engine.Engine [cached since 19.67s ago] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:31:49,313 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:31:54,222 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:31:54,223 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:03,417 INFO sqlalchemy.engine.Engine [cached since 31.1s ago] ('admin',)
-2026-04-07 21:58:03,419 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:31:54,223 INFO sqlalchemy.engine.Engine [cached since 24.58s ago] ('admin',)
+2026-04-07 22:31:54,224 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:03,419 INFO sqlalchemy.engine.Engine [cached since 24.95s ago] (1,)
-INFO:     127.0.0.1:41636 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:03,420 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:08,482 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:08,483 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:31:54,224 INFO sqlalchemy.engine.Engine [cached since 24.58s ago] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:31:54,225 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:31:59,147 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:31:59,148 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:08,483 INFO sqlalchemy.engine.Engine [cached since 36.16s ago] ('admin',)
-2026-04-07 21:58:08,484 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:31:59,148 INFO sqlalchemy.engine.Engine [cached since 29.51s ago] ('admin',)
+2026-04-07 22:31:59,151 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:08,484 INFO sqlalchemy.engine.Engine [cached since 30.02s ago] (1,)
-INFO:     127.0.0.1:56438 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:08,486 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:13,470 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:13,471 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:31:59,151 INFO sqlalchemy.engine.Engine [cached since 29.51s ago] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:31:59,153 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:03,791 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:03,791 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:13,471 INFO sqlalchemy.engine.Engine [cached since 41.15s ago] ('admin',)
-2026-04-07 21:58:13,474 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:03,792 INFO sqlalchemy.engine.Engine [cached since 33.53s ago] ('admin',)
+2026-04-07 22:32:03,793 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:13,474 INFO sqlalchemy.engine.Engine [cached since 35.01s ago] (1,)
-INFO:     127.0.0.1:56438 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:13,475 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:18,426 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:18,427 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:03,793 INFO sqlalchemy.engine.Engine [cached since 33.53s ago] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:03,794 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:08,718 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:08,718 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:18,427 INFO sqlalchemy.engine.Engine [cached since 46.11s ago] ('admin',)
-2026-04-07 21:58:18,428 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:08,719 INFO sqlalchemy.engine.Engine [cached since 38.46s ago] ('admin',)
+2026-04-07 22:32:08,722 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:18,428 INFO sqlalchemy.engine.Engine [cached since 39.96s ago] (1,)
-INFO:     127.0.0.1:56438 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:18,429 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:23,376 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:23,376 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:08,722 INFO sqlalchemy.engine.Engine [cached since 38.45s ago] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:08,723 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:13,630 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:13,630 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:23,376 INFO sqlalchemy.engine.Engine [cached since 51.06s ago] ('admin',)
-2026-04-07 21:58:23,380 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:13,630 INFO sqlalchemy.engine.Engine [cached since 43.37s ago] ('admin',)
+2026-04-07 22:32:13,632 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:23,380 INFO sqlalchemy.engine.Engine [cached since 44.91s ago] (1,)
-INFO:     127.0.0.1:56438 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:23,382 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:28,307 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:28,307 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:13,632 INFO sqlalchemy.engine.Engine [cached since 43.36s ago] (1,)
+INFO:     127.0.0.1:50278 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:13,633 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:18,527 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:18,527 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:28,308 INFO sqlalchemy.engine.Engine [cached since 55.99s ago] ('admin',)
-2026-04-07 21:58:28,309 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:18,527 INFO sqlalchemy.engine.Engine [cached since 48.38s ago] ('admin',)
+2026-04-07 22:32:18,529 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:28,309 INFO sqlalchemy.engine.Engine [cached since 49.84s ago] (1,)
-INFO:     127.0.0.1:56438 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:28,310 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:33,426 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:33,426 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:18,529 INFO sqlalchemy.engine.Engine [cached since 48.37s ago] (1,)
+INFO:     127.0.0.1:56846 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:18,530 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:23,567 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:23,567 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:33,426 INFO sqlalchemy.engine.Engine [cached since 60.98s ago] ('admin',)
-2026-04-07 21:58:33,429 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:23,567 INFO sqlalchemy.engine.Engine [cached since 53.42s ago] ('admin',)
+2026-04-07 22:32:23,568 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:33,429 INFO sqlalchemy.engine.Engine [cached since 54.84s ago] (1,)
-INFO:     127.0.0.1:56438 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:33,431 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:38,480 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:38,480 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:23,569 INFO sqlalchemy.engine.Engine [cached since 53.41s ago] (1,)
+INFO:     127.0.0.1:56862 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:23,569 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:29,447 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:29,448 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:38,481 INFO sqlalchemy.engine.Engine [cached since 66.03s ago] ('admin',)
-2026-04-07 21:58:38,483 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:29,448 INFO sqlalchemy.engine.Engine [cached since 59.3s ago] ('admin',)
+2026-04-07 22:32:29,449 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:38,483 INFO sqlalchemy.engine.Engine [cached since 59.89s ago] (1,)
-INFO:     127.0.0.1:55550 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:38,484 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:43,465 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:43,466 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:29,450 INFO sqlalchemy.engine.Engine [cached since 59.29s ago] (1,)
+INFO:     127.0.0.1:40944 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:29,451 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:34,379 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:34,380 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:43,466 INFO sqlalchemy.engine.Engine [cached since 71.02s ago] ('admin',)
-2026-04-07 21:58:43,468 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:34,380 INFO sqlalchemy.engine.Engine [cached since 64.23s ago] ('admin',)
+2026-04-07 22:32:34,383 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:43,468 INFO sqlalchemy.engine.Engine [cached since 64.87s ago] (1,)
-INFO:     127.0.0.1:55550 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:43,470 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:48,425 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:48,425 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:34,383 INFO sqlalchemy.engine.Engine [cached since 64.23s ago] (1,)
+INFO:     127.0.0.1:40944 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:34,384 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:39,316 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:39,317 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:48,426 INFO sqlalchemy.engine.Engine [cached since 75.98s ago] ('admin',)
-2026-04-07 21:58:48,428 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:39,317 INFO sqlalchemy.engine.Engine [cached since 69.17s ago] ('admin',)
+2026-04-07 22:32:39,319 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:48,429 INFO sqlalchemy.engine.Engine [cached since 69.83s ago] (1,)
-INFO:     127.0.0.1:55550 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:48,430 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:58:53,367 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:58:53,368 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:39,319 INFO sqlalchemy.engine.Engine [cached since 69.16s ago] (1,)
+INFO:     127.0.0.1:40944 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:39,320 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:44,231 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:44,232 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:58:53,368 INFO sqlalchemy.engine.Engine [cached since 80.92s ago] ('admin',)
-2026-04-07 21:58:53,369 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:44,232 INFO sqlalchemy.engine.Engine [cached since 74.08s ago] ('admin',)
+2026-04-07 22:32:44,233 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:58:53,369 INFO sqlalchemy.engine.Engine [cached since 74.78s ago] (1,)
-INFO:     127.0.0.1:55550 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:58:53,370 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:59:22,899 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:59:22,899 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:44,233 INFO sqlalchemy.engine.Engine [cached since 74.08s ago] (1,)
+INFO:     127.0.0.1:40944 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:44,234 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:49,440 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:49,440 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:59:22,899 INFO sqlalchemy.engine.Engine [cached since 109.8s ago] ('admin',)
-2026-04-07 21:59:22,902 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:49,440 INFO sqlalchemy.engine.Engine [cached since 79.12s ago] ('admin',)
+2026-04-07 22:32:49,441 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:59:22,902 INFO sqlalchemy.engine.Engine [cached since 103.6s ago] (1,)
-INFO:     127.0.0.1:56338 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:59:22,904 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:59:23,443 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:59:23,444 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:49,441 INFO sqlalchemy.engine.Engine [cached since 79.12s ago] (1,)
+INFO:     127.0.0.1:39650 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:49,442 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:54,482 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:54,482 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:59:23,444 INFO sqlalchemy.engine.Engine [cached since 110.3s ago] ('admin',)
-2026-04-07 21:59:23,446 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:54,482 INFO sqlalchemy.engine.Engine [cached since 84.17s ago] ('admin',)
+2026-04-07 22:32:54,483 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:59:23,446 INFO sqlalchemy.engine.Engine [cached since 104.2s ago] (1,)
-INFO:     127.0.0.1:56338 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:59:23,447 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:59:28,353 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:59:28,354 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:54,483 INFO sqlalchemy.engine.Engine [cached since 84.16s ago] (1,)
+INFO:     127.0.0.1:39652 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:54,484 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:32:59,444 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:32:59,445 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:59:28,354 INFO sqlalchemy.engine.Engine [cached since 115.2s ago] ('admin',)
-2026-04-07 21:59:28,356 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:32:59,445 INFO sqlalchemy.engine.Engine [cached since 89.13s ago] ('admin',)
+2026-04-07 22:32:59,448 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:59:28,356 INFO sqlalchemy.engine.Engine [cached since 109.1s ago] (1,)
-INFO:     127.0.0.1:56338 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:59:28,357 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:59:33,384 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:59:33,384 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:32:59,448 INFO sqlalchemy.engine.Engine [cached since 89.13s ago] (1,)
+INFO:     127.0.0.1:39652 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:32:59,450 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:33:04,396 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:33:04,396 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:59:33,384 INFO sqlalchemy.engine.Engine [cached since 120.3s ago] ('admin',)
-2026-04-07 21:59:33,386 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:33:04,396 INFO sqlalchemy.engine.Engine [cached since 94.08s ago] ('admin',)
+2026-04-07 22:33:04,398 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:59:33,386 INFO sqlalchemy.engine.Engine [cached since 114.2s ago] (1,)
-INFO:     127.0.0.1:51126 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:59:33,387 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:59:38,471 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:59:38,472 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:33:04,398 INFO sqlalchemy.engine.Engine [cached since 94.08s ago] (1,)
+INFO:     127.0.0.1:39652 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:33:04,399 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:33:09,318 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:33:09,318 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:59:38,472 INFO sqlalchemy.engine.Engine [cached since 125.4s ago] ('admin',)
-2026-04-07 21:59:38,474 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:33:09,318 INFO sqlalchemy.engine.Engine [cached since 99s ago] ('admin',)
+2026-04-07 22:33:09,320 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:59:38,474 INFO sqlalchemy.engine.Engine [cached since 119.3s ago] (1,)
-INFO:     127.0.0.1:49450 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:59:38,476 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:59:43,464 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:59:43,464 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:33:09,320 INFO sqlalchemy.engine.Engine [cached since 99s ago] (1,)
+INFO:     127.0.0.1:39652 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:33:09,321 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:33:14,241 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:33:14,242 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:59:43,465 INFO sqlalchemy.engine.Engine [cached since 130.4s ago] ('admin',)
-2026-04-07 21:59:43,466 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:33:14,242 INFO sqlalchemy.engine.Engine [cached since 103.9s ago] ('admin',)
+2026-04-07 22:33:14,244 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:59:43,466 INFO sqlalchemy.engine.Engine [cached since 124.3s ago] (1,)
-INFO:     127.0.0.1:49450 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:59:43,468 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:59:48,437 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:59:48,437 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:33:14,244 INFO sqlalchemy.engine.Engine [cached since 103.9s ago] (1,)
+INFO:     127.0.0.1:39652 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:33:14,245 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:33:19,450 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:33:19,450 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:59:48,437 INFO sqlalchemy.engine.Engine [cached since 135.4s ago] ('admin',)
-2026-04-07 21:59:48,439 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:33:19,450 INFO sqlalchemy.engine.Engine [cached since 109s ago] ('admin',)
+2026-04-07 22:33:19,451 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:59:48,439 INFO sqlalchemy.engine.Engine [cached since 129.2s ago] (1,)
-INFO:     127.0.0.1:49450 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:59:48,441 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:59:53,384 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:59:53,385 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:33:19,451 INFO sqlalchemy.engine.Engine [cached since 109s ago] (1,)
+INFO:     127.0.0.1:32996 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:33:19,452 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:33:45,233 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:33:45,233 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:59:53,385 INFO sqlalchemy.engine.Engine [cached since 140.3s ago] ('admin',)
-2026-04-07 21:59:53,388 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:33:45,233 INFO sqlalchemy.engine.Engine [cached since 134.8s ago] ('admin',)
+2026-04-07 22:33:45,235 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:59:53,388 INFO sqlalchemy.engine.Engine [cached since 134.2s ago] (1,)
-INFO:     127.0.0.1:49450 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:59:53,389 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 21:59:58,315 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 21:59:58,316 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:33:45,235 INFO sqlalchemy.engine.Engine [cached since 134.8s ago] (1,)
+INFO:     127.0.0.1:34462 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:33:45,236 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:34:45,242 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:34:45,242 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 21:59:58,316 INFO sqlalchemy.engine.Engine [cached since 145.3s ago] ('admin',)
-2026-04-07 21:59:58,317 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:34:45,242 INFO sqlalchemy.engine.Engine [cached since 194.5s ago] ('admin',)
+2026-04-07 22:34:45,244 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 21:59:58,317 INFO sqlalchemy.engine.Engine [cached since 139.1s ago] (1,)
-INFO:     127.0.0.1:49450 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 21:59:58,319 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 22:00:03,385 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 22:00:03,385 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:34:45,245 INFO sqlalchemy.engine.Engine [cached since 194.5s ago] (1,)
+INFO:     127.0.0.1:41282 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:34:45,247 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:35:45,256 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:35:45,256 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 22:00:03,385 INFO sqlalchemy.engine.Engine [cached since 150.2s ago] ('admin',)
-2026-04-07 22:00:03,387 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:35:45,256 INFO sqlalchemy.engine.Engine [cached since 254.2s ago] ('admin',)
+2026-04-07 22:35:45,258 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 22:00:03,387 INFO sqlalchemy.engine.Engine [cached since 144.1s ago] (1,)
-INFO:     127.0.0.1:49450 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 22:00:03,388 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 22:00:08,467 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 22:00:08,467 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:35:45,258 INFO sqlalchemy.engine.Engine [cached since 254.1s ago] (1,)
+INFO:     127.0.0.1:43124 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:35:45,261 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:36:45,255 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:36:45,256 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 22:00:08,467 INFO sqlalchemy.engine.Engine [cached since 155.3s ago] ('admin',)
-2026-04-07 22:00:08,468 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:36:45,256 INFO sqlalchemy.engine.Engine [cached since 313.8s ago] ('admin',)
+2026-04-07 22:36:45,257 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 22:00:08,468 INFO sqlalchemy.engine.Engine [cached since 149.1s ago] (1,)
-INFO:     127.0.0.1:46750 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 22:00:08,469 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 22:00:13,461 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 22:00:13,461 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:36:45,257 INFO sqlalchemy.engine.Engine [cached since 313.8s ago] (1,)
+INFO:     127.0.0.1:33966 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:36:45,259 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:37:45,277 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:37:45,277 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 22:00:13,461 INFO sqlalchemy.engine.Engine [cached since 160.3s ago] ('admin',)
-2026-04-07 22:00:13,462 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:37:45,277 INFO sqlalchemy.engine.Engine [cached since 373.2s ago] ('admin',)
+2026-04-07 22:37:45,279 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 22:00:13,463 INFO sqlalchemy.engine.Engine [cached since 154.1s ago] (1,)
-INFO:     127.0.0.1:46750 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 22:00:13,463 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 22:00:18,442 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 22:00:18,442 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:37:45,279 INFO sqlalchemy.engine.Engine [cached since 373.2s ago] (1,)
+INFO:     127.0.0.1:38262 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:37:45,280 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:38:45,282 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:38:45,282 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 22:00:18,442 INFO sqlalchemy.engine.Engine [cached since 165.3s ago] ('admin',)
-2026-04-07 22:00:18,444 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:38:45,282 INFO sqlalchemy.engine.Engine [cached since 432.5s ago] ('admin',)
+2026-04-07 22:38:45,283 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 22:00:18,444 INFO sqlalchemy.engine.Engine [cached since 159.1s ago] (1,)
-INFO:     127.0.0.1:46750 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 22:00:18,444 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 22:00:23,384 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 22:00:23,384 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:38:45,284 INFO sqlalchemy.engine.Engine [cached since 432.5s ago] (1,)
+INFO:     127.0.0.1:54678 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:38:45,285 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:12,949 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:12,949 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 22:00:23,384 INFO sqlalchemy.engine.Engine [cached since 170.2s ago] ('admin',)
-2026-04-07 22:00:23,385 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:39:12,949 INFO sqlalchemy.engine.Engine [cached since 460.1s ago] ('admin',)
+2026-04-07 22:39:12,952 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 22:00:23,385 INFO sqlalchemy.engine.Engine [cached since 164.1s ago] (1,)
-INFO:     127.0.0.1:46750 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 22:00:23,386 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 22:00:28,311 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 22:00:28,311 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:39:12,952 INFO sqlalchemy.engine.Engine [cached since 460.1s ago] (1,)
+INFO:     127.0.0.1:37640 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:12,953 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:13,401 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:13,401 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 22:00:28,311 INFO sqlalchemy.engine.Engine [cached since 175.1s ago] ('admin',)
-2026-04-07 22:00:28,313 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:39:13,401 INFO sqlalchemy.engine.Engine [cached since 460.5s ago] ('admin',)
+2026-04-07 22:39:13,403 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 22:00:28,313 INFO sqlalchemy.engine.Engine [cached since 169s ago] (1,)
-INFO:     127.0.0.1:46750 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 22:00:28,314 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 22:00:45,463 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 22:00:45,464 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:39:13,403 INFO sqlalchemy.engine.Engine [cached since 460.5s ago] (1,)
+INFO:     127.0.0.1:37640 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:13,405 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:19,391 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:19,391 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 22:00:45,464 INFO sqlalchemy.engine.Engine [cached since 192.1s ago] ('admin',)
-2026-04-07 22:00:45,465 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:39:19,391 INFO sqlalchemy.engine.Engine [cached since 466.4s ago] ('admin',)
+2026-04-07 22:39:19,394 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 22:00:45,465 INFO sqlalchemy.engine.Engine [cached since 186s ago] (1,)
-INFO:     127.0.0.1:57920 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 22:00:45,466 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 22:01:45,461 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 22:01:45,462 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:39:19,394 INFO sqlalchemy.engine.Engine [cached since 466.4s ago] (1,)
+INFO:     127.0.0.1:37654 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:19,395 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:24,456 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:24,457 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 22:01:45,462 INFO sqlalchemy.engine.Engine [cached since 251.9s ago] ('admin',)
-2026-04-07 22:01:45,464 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:39:24,457 INFO sqlalchemy.engine.Engine [cached since 471.4s ago] ('admin',)
+2026-04-07 22:39:24,459 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 22:01:45,464 INFO sqlalchemy.engine.Engine [cached since 245.7s ago] (1,)
-INFO:     127.0.0.1:58520 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 22:01:45,465 INFO sqlalchemy.engine.Engine ROLLBACK
-2026-04-07 22:02:45,471 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-2026-04-07 22:02:45,472 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+2026-04-07 22:39:24,459 INFO sqlalchemy.engine.Engine [cached since 471.4s ago] (1,)
+INFO:     127.0.0.1:46210 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:24,460 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:29,450 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:29,451 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
 FROM users 
 WHERE users.username = $1::VARCHAR
-2026-04-07 22:02:45,472 INFO sqlalchemy.engine.Engine [cached since 311.3s ago] ('admin',)
-2026-04-07 22:02:45,474 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+2026-04-07 22:39:29,451 INFO sqlalchemy.engine.Engine [cached since 476.4s ago] ('admin',)
+2026-04-07 22:39:29,453 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
 FROM documents 
 WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
-2026-04-07 22:02:45,474 INFO sqlalchemy.engine.Engine [cached since 305.2s ago] (1,)
-INFO:     127.0.0.1:47772 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
-2026-04-07 22:02:45,475 INFO sqlalchemy.engine.Engine ROLLBACK
-INFO:     Shutting down
+2026-04-07 22:39:29,453 INFO sqlalchemy.engine.Engine [cached since 476.4s ago] (1,)
+INFO:     127.0.0.1:46210 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:29,454 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:34,398 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:34,398 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:39:34,398 INFO sqlalchemy.engine.Engine [cached since 481.4s ago] ('admin',)
+2026-04-07 22:39:34,399 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:39:34,399 INFO sqlalchemy.engine.Engine [cached since 481.4s ago] (1,)
+INFO:     127.0.0.1:46210 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:34,400 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:39,333 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:39,333 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:39:39,334 INFO sqlalchemy.engine.Engine [cached since 486.3s ago] ('admin',)
+2026-04-07 22:39:39,336 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:39:39,336 INFO sqlalchemy.engine.Engine [cached since 486.3s ago] (1,)
+INFO:     127.0.0.1:46210 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:39,337 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:43,366 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:43,366 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:39:43,366 INFO sqlalchemy.engine.Engine [cached since 490.3s ago] ('admin',)
+2026-04-07 22:39:43,368 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:39:43,368 INFO sqlalchemy.engine.Engine [cached since 490.3s ago] (1,)
+INFO:     127.0.0.1:46210 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:43,369 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:48,474 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:48,474 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:39:48,474 INFO sqlalchemy.engine.Engine [cached since 495.3s ago] ('admin',)
+2026-04-07 22:39:48,478 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:39:48,479 INFO sqlalchemy.engine.Engine [cached since 495.3s ago] (1,)
+INFO:     127.0.0.1:46210 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:48,481 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:54,467 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:54,468 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:39:54,468 INFO sqlalchemy.engine.Engine [cached since 501.3s ago] ('admin',)
+2026-04-07 22:39:54,470 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:39:54,471 INFO sqlalchemy.engine.Engine [cached since 501.2s ago] (1,)
+INFO:     127.0.0.1:44710 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:54,473 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:39:59,452 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:39:59,453 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:39:59,453 INFO sqlalchemy.engine.Engine [cached since 506.2s ago] ('admin',)
+2026-04-07 22:39:59,457 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:39:59,457 INFO sqlalchemy.engine.Engine [cached since 506.2s ago] (1,)
+INFO:     127.0.0.1:44710 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:39:59,459 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:04,406 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:04,406 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:04,407 INFO sqlalchemy.engine.Engine [cached since 511.2s ago] ('admin',)
+2026-04-07 22:40:04,409 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:04,409 INFO sqlalchemy.engine.Engine [cached since 511.2s ago] (1,)
+INFO:     127.0.0.1:44710 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:04,411 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:09,339 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:09,340 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:09,340 INFO sqlalchemy.engine.Engine [cached since 516.1s ago] ('admin',)
+2026-04-07 22:40:09,343 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:09,343 INFO sqlalchemy.engine.Engine [cached since 516.1s ago] (1,)
+INFO:     127.0.0.1:44710 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:09,345 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:14,257 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:14,257 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:14,257 INFO sqlalchemy.engine.Engine [cached since 521s ago] ('admin',)
+2026-04-07 22:40:14,258 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:14,258 INFO sqlalchemy.engine.Engine [cached since 521s ago] (1,)
+INFO:     127.0.0.1:44710 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:14,259 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:19,393 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:19,393 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:19,393 INFO sqlalchemy.engine.Engine [cached since 526s ago] ('admin',)
+2026-04-07 22:40:19,395 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:19,395 INFO sqlalchemy.engine.Engine [cached since 526s ago] (1,)
+INFO:     127.0.0.1:44710 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:19,396 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:24,470 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:24,471 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:24,471 INFO sqlalchemy.engine.Engine [cached since 531.1s ago] ('admin',)
+2026-04-07 22:40:24,472 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:24,472 INFO sqlalchemy.engine.Engine [cached since 531.1s ago] (1,)
+INFO:     127.0.0.1:52098 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:24,473 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:29,470 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:29,470 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:29,470 INFO sqlalchemy.engine.Engine [cached since 536.1s ago] ('admin',)
+2026-04-07 22:40:29,472 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:29,472 INFO sqlalchemy.engine.Engine [cached since 536.1s ago] (1,)
+INFO:     127.0.0.1:52098 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:29,473 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:33,547 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:33,548 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:33,548 INFO sqlalchemy.engine.Engine [cached since 540.1s ago] ('admin',)
+2026-04-07 22:40:33,550 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:33,551 INFO sqlalchemy.engine.Engine [cached since 540.1s ago] (1,)
+INFO:     127.0.0.1:52098 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:33,552 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:38,490 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:38,490 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:38,490 INFO sqlalchemy.engine.Engine [cached since 545.1s ago] ('admin',)
+2026-04-07 22:40:38,493 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:38,493 INFO sqlalchemy.engine.Engine [cached since 545.1s ago] (1,)
+INFO:     127.0.0.1:52098 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:38,495 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:43,412 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:43,413 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:43,413 INFO sqlalchemy.engine.Engine [cached since 550s ago] ('admin',)
+2026-04-07 22:40:43,416 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:43,416 INFO sqlalchemy.engine.Engine [cached since 550s ago] (1,)
+INFO:     127.0.0.1:52098 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:43,418 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:52098 - "OPTIONS /api/v1/upload/ HTTP/1.1" 200 OK
+2026-04-07 22:40:45,116 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:45,116 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:45,116 INFO sqlalchemy.engine.Engine [cached since 551.7s ago] ('admin',)
+2026-04-07 22:40:45,124 INFO sqlalchemy.engine.Engine INSERT INTO documents (owner_id, title, filename, file_path, language, status) VALUES ($1::INTEGER, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR) RETURNING documents.id, documents.created_at
+2026-04-07 22:40:45,124 INFO sqlalchemy.engine.Engine [generated in 0.00034s] (1, 'диплома 1.jpg', 'диплома 1.jpg', 'uploads/1_диплома 1.jpg', 'unknown', 'processing')
+2026-04-07 22:40:45,130 INFO sqlalchemy.engine.Engine COMMIT
+2026-04-07 22:40:45,132 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:45,133 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.id = $1::INTEGER
+2026-04-07 22:40:45,133 INFO sqlalchemy.engine.Engine [generated in 0.00012s] (1,)
+INFO:     127.0.0.1:52098 - "POST /api/v1/upload/ HTTP/1.1" 200 OK
+2026-04-07 22:40:45,234 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:45,240 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:45,241 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:45,241 INFO sqlalchemy.engine.Engine [cached since 551.8s ago] ('admin',)
+2026-04-07 22:40:45,243 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:45,243 INFO sqlalchemy.engine.Engine [cached since 551.8s ago] (1,)
+INFO:     127.0.0.1:52098 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:45,245 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:48,481 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:48,481 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:48,481 INFO sqlalchemy.engine.Engine [cached since 554.9s ago] ('admin',)
+2026-04-07 22:40:48,483 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:48,483 INFO sqlalchemy.engine.Engine [cached since 554.9s ago] (1,)
+INFO:     127.0.0.1:52098 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:48,484 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:53,559 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:53,560 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:53,560 INFO sqlalchemy.engine.Engine [cached since 560s ago] ('admin',)
+2026-04-07 22:40:53,561 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:53,561 INFO sqlalchemy.engine.Engine [cached since 560s ago] (1,)
+INFO:     127.0.0.1:51694 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:53,562 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:40:58,572 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:40:58,572 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:40:58,572 INFO sqlalchemy.engine.Engine [cached since 565s ago] ('admin',)
+2026-04-07 22:40:58,574 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:40:58,574 INFO sqlalchemy.engine.Engine [cached since 565s ago] (1,)
+INFO:     127.0.0.1:51700 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:40:58,575 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:51700 - "OPTIONS /api/v1/documents/1/result HTTP/1.1" 200 OK
+2026-04-07 22:41:00,006 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:00,007 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:00,007 INFO sqlalchemy.engine.Engine [cached since 566.5s ago] ('admin',)
+2026-04-07 22:41:00,009 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.id = $1::INTEGER AND documents.owner_id = $2::INTEGER
+2026-04-07 22:41:00,009 INFO sqlalchemy.engine.Engine [generated in 0.00014s] (1, 1)
+2026-04-07 22:41:00,010 INFO sqlalchemy.engine.Engine SELECT analysis_results.id, analysis_results.document_id, analysis_results.summary, analysis_results.risk_points, analysis_results.created_at 
+FROM analysis_results 
+WHERE analysis_results.document_id = $1::INTEGER
+2026-04-07 22:41:00,011 INFO sqlalchemy.engine.Engine [generated in 0.00013s] (1,)
+INFO:     127.0.0.1:51700 - "GET /api/v1/documents/1/result HTTP/1.1" 200 OK
+2026-04-07 22:41:00,013 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:03,540 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:03,540 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:03,540 INFO sqlalchemy.engine.Engine [cached since 570s ago] ('admin',)
+2026-04-07 22:41:03,542 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:03,543 INFO sqlalchemy.engine.Engine [cached since 570s ago] (1,)
+INFO:     127.0.0.1:51700 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:03,544 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:08,481 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:08,481 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:08,482 INFO sqlalchemy.engine.Engine [cached since 574.9s ago] ('admin',)
+2026-04-07 22:41:08,485 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:08,485 INFO sqlalchemy.engine.Engine [cached since 574.9s ago] (1,)
+INFO:     127.0.0.1:51700 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:08,487 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:14,295 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:14,295 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:14,295 INFO sqlalchemy.engine.Engine [cached since 580.7s ago] ('admin',)
+2026-04-07 22:41:14,296 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:14,296 INFO sqlalchemy.engine.Engine [cached since 580.7s ago] (1,)
+INFO:     127.0.0.1:46878 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:14,297 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:19,399 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:19,400 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:19,400 INFO sqlalchemy.engine.Engine [cached since 585.7s ago] ('admin',)
+2026-04-07 22:41:19,402 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:19,403 INFO sqlalchemy.engine.Engine [cached since 585.7s ago] (1,)
+INFO:     127.0.0.1:46878 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:19,404 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:24,484 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:24,485 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:24,485 INFO sqlalchemy.engine.Engine [cached since 590.8s ago] ('admin',)
+2026-04-07 22:41:24,486 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:24,486 INFO sqlalchemy.engine.Engine [cached since 590.8s ago] (1,)
+INFO:     127.0.0.1:43754 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:24,487 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:29,483 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:29,484 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:29,484 INFO sqlalchemy.engine.Engine [cached since 595.8s ago] ('admin',)
+2026-04-07 22:41:29,487 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:29,487 INFO sqlalchemy.engine.Engine [cached since 595.8s ago] (1,)
+INFO:     127.0.0.1:43754 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:29,490 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:43754 - "OPTIONS /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:34,445 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:34,446 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:34,446 INFO sqlalchemy.engine.Engine [cached since 600.7s ago] ('admin',)
+2026-04-07 22:41:34,447 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:34,447 INFO sqlalchemy.engine.Engine [cached since 600.7s ago] (1,)
+INFO:     127.0.0.1:43754 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:34,448 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:39,361 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:39,362 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:39,362 INFO sqlalchemy.engine.Engine [cached since 605.7s ago] ('admin',)
+2026-04-07 22:41:39,363 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:39,363 INFO sqlalchemy.engine.Engine [cached since 605.7s ago] (1,)
+INFO:     127.0.0.1:43754 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:39,365 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:44,291 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:44,291 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:44,291 INFO sqlalchemy.engine.Engine [cached since 610.6s ago] ('admin',)
+2026-04-07 22:41:44,293 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:44,293 INFO sqlalchemy.engine.Engine [cached since 610.6s ago] (1,)
+INFO:     127.0.0.1:43754 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:44,294 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:49,384 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:49,384 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:49,384 INFO sqlalchemy.engine.Engine [cached since 615.5s ago] ('admin',)
+2026-04-07 22:41:49,386 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:49,386 INFO sqlalchemy.engine.Engine [cached since 615.5s ago] (1,)
+INFO:     127.0.0.1:43754 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:49,387 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:54,484 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:54,484 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:54,484 INFO sqlalchemy.engine.Engine [cached since 620.6s ago] ('admin',)
+2026-04-07 22:41:54,485 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:54,486 INFO sqlalchemy.engine.Engine [cached since 620.6s ago] (1,)
+INFO:     127.0.0.1:34588 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:54,486 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:41:59,491 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:41:59,491 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:41:59,491 INFO sqlalchemy.engine.Engine [cached since 625.6s ago] ('admin',)
+2026-04-07 22:41:59,492 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:41:59,493 INFO sqlalchemy.engine.Engine [cached since 625.6s ago] (1,)
+INFO:     127.0.0.1:34594 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:41:59,494 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:42:04,441 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:42:04,442 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:42:04,442 INFO sqlalchemy.engine.Engine [cached since 630.6s ago] ('admin',)
+2026-04-07 22:42:04,443 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:42:04,443 INFO sqlalchemy.engine.Engine [cached since 630.6s ago] (1,)
+INFO:     127.0.0.1:34594 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:42:04,444 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:42:09,383 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:42:09,384 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:42:09,384 INFO sqlalchemy.engine.Engine [cached since 635.5s ago] ('admin',)
+2026-04-07 22:42:09,386 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:42:09,386 INFO sqlalchemy.engine.Engine [cached since 635.5s ago] (1,)
+INFO:     127.0.0.1:34594 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:42:09,387 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:42:45,276 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:42:45,276 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:42:45,276 INFO sqlalchemy.engine.Engine [cached since 671.3s ago] ('admin',)
+2026-04-07 22:42:45,277 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:42:45,277 INFO sqlalchemy.engine.Engine [cached since 671.3s ago] (1,)
+INFO:     127.0.0.1:33066 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:42:45,278 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:43:45,297 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:43:45,298 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:43:45,298 INFO sqlalchemy.engine.Engine [cached since 731s ago] ('admin',)
+2026-04-07 22:43:45,299 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:43:45,299 INFO sqlalchemy.engine.Engine [cached since 731s ago] (1,)
+INFO:     127.0.0.1:45292 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:43:45,300 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:44:45,296 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:44:45,296 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:44:45,297 INFO sqlalchemy.engine.Engine [cached since 790.6s ago] ('admin',)
+2026-04-07 22:44:45,299 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:44:45,299 INFO sqlalchemy.engine.Engine [cached since 790.6s ago] (1,)
+INFO:     127.0.0.1:35172 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:44:45,301 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:45:45,267 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:45:45,268 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:45:45,268 INFO sqlalchemy.engine.Engine [cached since 850.3s ago] ('admin',)
+2026-04-07 22:45:45,271 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:45:45,271 INFO sqlalchemy.engine.Engine [cached since 850.3s ago] (1,)
+INFO:     127.0.0.1:57138 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:45:45,272 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:46:45,295 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:46:45,296 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:46:45,296 INFO sqlalchemy.engine.Engine [cached since 910s ago] ('admin',)
+2026-04-07 22:46:45,297 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:46:45,297 INFO sqlalchemy.engine.Engine [cached since 910s ago] (1,)
+INFO:     127.0.0.1:41536 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:46:45,298 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:47:45,310 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:47:45,311 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:47:45,311 INFO sqlalchemy.engine.Engine [cached since 969.7s ago] ('admin',)
+2026-04-07 22:47:45,312 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:47:45,312 INFO sqlalchemy.engine.Engine [cached since 969.7s ago] (1,)
+INFO:     127.0.0.1:57144 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:47:45,313 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:48:45,323 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:48:45,323 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:48:45,323 INFO sqlalchemy.engine.Engine [cached since 1029s ago] ('admin',)
+2026-04-07 22:48:45,326 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:48:45,326 INFO sqlalchemy.engine.Engine [cached since 1029s ago] (1,)
+INFO:     127.0.0.1:46232 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:48:45,328 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:49:45,664 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:49:45,665 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:49:45,665 INFO sqlalchemy.engine.Engine [cached since 1089s ago] ('admin',)
+2026-04-07 22:49:45,666 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:49:45,666 INFO sqlalchemy.engine.Engine [cached since 1089s ago] (1,)
+INFO:     127.0.0.1:44920 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:49:45,667 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:50:45,356 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:50:45,357 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:50:45,357 INFO sqlalchemy.engine.Engine [cached since 1148s ago] ('admin',)
+2026-04-07 22:50:45,358 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:50:45,358 INFO sqlalchemy.engine.Engine [cached since 1148s ago] (1,)
+INFO:     127.0.0.1:45002 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:50:45,359 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:43638 - "OPTIONS /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:51:45,050 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:51:45,051 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:51:45,051 INFO sqlalchemy.engine.Engine [cached since 1207s ago] ('admin',)
+2026-04-07 22:51:45,054 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:51:45,054 INFO sqlalchemy.engine.Engine [cached since 1207s ago] (1,)
+INFO:     127.0.0.1:43638 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:51:45,055 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:52:45,266 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:52:45,266 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:52:45,266 INFO sqlalchemy.engine.Engine [cached since 1268s ago] ('admin',)
+2026-04-07 22:52:45,268 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:52:45,268 INFO sqlalchemy.engine.Engine [cached since 1268s ago] (1,)
+INFO:     127.0.0.1:49666 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:52:45,269 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:53:45,676 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:53:45,676 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:53:45,676 INFO sqlalchemy.engine.Engine [cached since 1327s ago] ('admin',)
+2026-04-07 22:53:45,677 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:53:45,677 INFO sqlalchemy.engine.Engine [cached since 1327s ago] (1,)
+INFO:     127.0.0.1:44476 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:53:45,678 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:54:45,190 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:54:45,190 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:54:45,190 INFO sqlalchemy.engine.Engine [cached since 1386s ago] ('admin',)
+2026-04-07 22:54:45,192 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:54:45,192 INFO sqlalchemy.engine.Engine [cached since 1386s ago] (1,)
+INFO:     127.0.0.1:48426 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:54:45,193 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:55:45,680 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:55:45,681 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:55:45,681 INFO sqlalchemy.engine.Engine [cached since 1446s ago] ('admin',)
+2026-04-07 22:55:45,684 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:55:45,684 INFO sqlalchemy.engine.Engine [cached since 1446s ago] (1,)
+INFO:     127.0.0.1:37800 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:55:45,685 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:56:45,353 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:56:45,353 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:56:45,354 INFO sqlalchemy.engine.Engine [cached since 1505s ago] ('admin',)
+2026-04-07 22:56:45,355 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:56:45,355 INFO sqlalchemy.engine.Engine [cached since 1505s ago] (1,)
+INFO:     127.0.0.1:44886 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:56:45,358 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:57:45,384 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:57:45,385 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:57:45,385 INFO sqlalchemy.engine.Engine [cached since 1565s ago] ('admin',)
+2026-04-07 22:57:45,387 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:57:45,387 INFO sqlalchemy.engine.Engine [cached since 1565s ago] (1,)
+INFO:     127.0.0.1:57014 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:57:45,388 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:58:45,357 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:58:45,358 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:58:45,358 INFO sqlalchemy.engine.Engine [cached since 1624s ago] ('admin',)
+2026-04-07 22:58:45,361 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:58:45,362 INFO sqlalchemy.engine.Engine [cached since 1624s ago] (1,)
+INFO:     127.0.0.1:54506 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:58:45,363 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-04-07 22:59:45,389 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-04-07 22:59:45,389 INFO sqlalchemy.engine.Engine SELECT users.id, users.username, users.hashed_password, users.created_at 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-07 22:59:45,389 INFO sqlalchemy.engine.Engine [cached since 1684s ago] ('admin',)
+2026-04-07 22:59:45,392 INFO sqlalchemy.engine.Engine SELECT documents.id, documents.owner_id, documents.title, documents.filename, documents.file_path, documents.language, documents.status, documents.created_at 
+FROM documents 
+WHERE documents.owner_id = $1::INTEGER ORDER BY documents.created_at DESC
+2026-04-07 22:59:45,392 INFO sqlalchemy.engine.Engine [cached since 1684s ago] (1,)
+INFO:     127.0.0.1:47008 - "GET /api/v1/documents/ HTTP/1.1" 200 OK
+2026-04-07 22:59:45,395 INFO sqlalchemy.engine.Engine ROLLBACK
 INFO:     connection closed
+INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [52383]
+INFO:     Finished server process [60087]

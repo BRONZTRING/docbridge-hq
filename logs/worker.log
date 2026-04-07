@@ -1,5 +1,5 @@
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 14628.90it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2349.30it/s]
 [1mXLMRobertaModel LOAD REPORT[0m from: sentence-transformers/paraphrase-multilingual-mpnet-base-v2
 Key                     | Status     |  | 
 ------------------------+------------+--+-
@@ -10,10 +10,10 @@ Notes:
  
  -------------- celery@LAPTOP-T6SAPHC1 v5.6.3 (recovery)
 --- ***** ----- 
--- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39 2026-04-07 21:57:24
+-- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39 2026-04-07 22:31:25
 - *** --- * --- 
 - ** ---------- [config]
-- ** ---------- .> app:         docbridge_worker:0x7c61c6d02630
+- ** ---------- .> app:         docbridge_worker:0x7875dbb06030
 - ** ---------- .> transport:   redis://localhost:6379/0
 - ** ---------- .> results:     redis://localhost:6379/0
 - *** --- * --- .> concurrency: 20 (solo)
@@ -26,10 +26,14 @@ Notes:
 [tasks]
   . analyze_document_task
 
-[2026-04-07 21:57:24,334: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2026-04-07 21:57:24,339: INFO/MainProcess] mingle: searching for neighbors
-[2026-04-07 21:57:25,349: INFO/MainProcess] mingle: all alone
-[2026-04-07 21:57:25,364: INFO/MainProcess] celery@LAPTOP-T6SAPHC1 ready.
+[2026-04-07 22:31:25,544: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2026-04-07 22:31:25,546: INFO/MainProcess] mingle: searching for neighbors
+[2026-04-07 22:31:26,555: INFO/MainProcess] mingle: all alone
+[2026-04-07 22:31:26,570: INFO/MainProcess] celery@LAPTOP-T6SAPHC1 ready.
+[2026-04-07 22:40:45,234: INFO/MainProcess] Task analyze_document_task[cfee5f21-a53b-4d28-a2fb-afc3e1c4aa91] received
+[2026-04-07 22:40:49,726: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-04-07 22:40:52,373: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-04-07 22:40:55,515: INFO/MainProcess] Task analyze_document_task[cfee5f21-a53b-4d28-a2fb-afc3e1c4aa91] succeeded in 10.129612242999428s: {'status': 'success'}
 
 worker: Hitting Ctrl+C again will initiate cold shutdown, terminating all running tasks!
 

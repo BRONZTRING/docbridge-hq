@@ -1,24 +1,81 @@
+version: '3.8'
+
 services:
   db:
-    image: pgvector/pgvector:pg15
+    image: ankane/pgvector:v0.5.1
     container_name: docbridge_db
     restart: always
     environment:
-      POSTGRES_USER: docbridge_admin
-      POSTGRES_PASSWORD: docbridge_password
-      POSTGRES_DB: docbridge_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: docbridge
     ports:
       - "5433:5432"
     volumes:
-      - docbridge_pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
 
-  # 【新增】Redis 消息代理与缓存
   redis:
-    image: redis:7-alpine
+    image: redis:alpine
     container_name: docbridge_redis
     restart: always
     ports:
       - "6379:6379"
 
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docbridge_backend
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:password@db:5432/docbridge
+      - REDIS_URL=redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    # 巧妙的 Linux 指令：自动替换 alembic 内部坐标，执行建表，然后点火网关
+    command: >
+      bash -c "sed -i 's/localhost:5433/db:5432/g' alembic.ini && 
+      alembic upgrade head && 
+      uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docbridge_worker
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:password@db:5432/docbridge
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - backend
+      - redis
+    command: celery -A app.worker worker --pool=solo --loglevel=info
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: docbridge_frontend
+    restart: always
+    ports:
+      # 将 Nginx 的 80 端口映射到外部的 5173，统帅的访问习惯无需任何改变！
+      - "5173:80"
+    depends_on:
+      - backend
+
 volumes:
-  docbridge_pgdata:
+  pgdata:

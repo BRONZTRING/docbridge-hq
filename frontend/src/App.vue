@@ -52,8 +52,10 @@
         <el-card v-if="!viewGlobalChat" class="box-card">
           <template #header>
             <div class="card-header">
-              <span>全语境情报池 (仅展示属于您的机密卷宗)</span>
-              <el-upload action="#" :http-request="customUpload" :show-file-list="false" accept=".pdf,.docx,.txt">
+              <!-- 【已优化】彰显 OCR 与全模态能力 -->
+              <span style="font-size: 15px;">全语境情报池 (支持 PDF, DOCX, TXT 及 图片扫描件 OCR)</span>
+              <!-- 【战术甲落地】开放图片后缀拦截 -->
+              <el-upload action="#" :http-request="customUpload" :show-file-list="false" accept=".pdf,.docx,.txt,.png,.jpg,.jpeg">
                 <el-button type="primary" :loading="isUploading"><el-icon><Upload /></el-icon> 物理摄入</el-button>
               </el-upload>
             </div>
