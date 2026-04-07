@@ -11,7 +11,7 @@ from pydantic import BaseModel
 from .database import get_db
 from .models import Document, AnalysisResult, DocumentChunk
 from .worker import analyze_document_task, celery_app
-from .ai_core import build_qa_chain, get_embeddings
+from .ai_core import build_qa_chain, get_embeddings, PrivacyShield
 
 app = FastAPI(title="DocBridge AI API")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
@@ -52,32 +52,52 @@ async def get_document_result(document_id: int, db: AsyncSession = Depends(get_d
     if not analysis: raise HTTPException(status_code=404)
     return {"status": "success", "summary": analysis.summary, "risk_points": analysis.risk_points}
 
-# 【战术升级】：请求体中加入可选的 history 字段
 class ChatRequest(BaseModel): 
     query: str
     history: Optional[List[Dict[str, str]]] = []
+    document_id: Optional[int] = None  # 如果为 None，则是全局搜索！
 
-@app.post("/api/v1/documents/{document_id}/chat")
-async def chat_with_document(document_id: int, request: ChatRequest, db: AsyncSession = Depends(get_db)):
+@app.post("/api/v1/chat")
+async def unified_chat(request: ChatRequest, db: AsyncSession = Depends(get_db)):
     try:
         q_vec = get_embeddings().embed_query(request.query)
-        top_chunks = (await db.execute(select(DocumentChunk).where(DocumentChunk.document_id == document_id).order_by(DocumentChunk.embedding.cosine_distance(q_vec)).limit(3))).scalars().all()
-        if not top_chunks: return {"status": "success", "answer": "未找到物理切片。"}
         
-        context = "\n\n".join([chunk.text_content for chunk in top_chunks])
+        # ==========================================
+        # 🌐 战术丙：支持全局跨文档检索
+        # ==========================================
+        stmt = select(DocumentChunk).order_by(DocumentChunk.embedding.cosine_distance(q_vec)).limit(4)
+        if request.document_id: # 局部检索
+            stmt = stmt.where(DocumentChunk.document_id == request.document_id)
+            
+        top_chunks = (await db.execute(stmt)).scalars().all()
+        if not top_chunks: return {"status": "success", "answer": "雷达未能扫过相关物理切片。"}
+        
+        raw_context = "\n\n".join([f"[片段来源 DocID:{c.document_id}] {c.text_content}" for c in top_chunks])
         
         # 组装记忆矩阵
         formatted_history = ""
-        for msg in request.history[-6:]: # 只保留最近3轮对话（6条），防止上下文爆炸
+        for msg in request.history[-6:]:
             role = "统帅" if msg.get("role") == "user" else "AI 参谋"
             formatted_history += f"[{role}]: {msg.get('content')}\n"
         if not formatted_history: formatted_history = "暂无历史对话。"
 
-        answer = await build_qa_chain().ainvoke({
-            "context": context, 
+        # ==========================================
+        # 🛡️ 战术乙应用：拦截敏感词
+        # ==========================================
+        shield = PrivacyShield()
+        masked_context = shield.mask(raw_context)
+        masked_query = shield.mask(request.query)
+
+        # 呼叫云端 (此时金额已被替换为 [绝密金额_1] 等)
+        masked_answer = await build_qa_chain().ainvoke({
+            "context": masked_context, 
             "chat_history": formatted_history,
-            "question": request.query
+            "question": masked_query
         })
-        return {"status": "success", "answer": answer}
+        
+        # 收回后还原绝密数据
+        final_answer = shield.unmask(masked_answer)
+
+        return {"status": "success", "answer": final_answer}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

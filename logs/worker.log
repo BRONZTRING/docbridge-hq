@@ -1,5 +1,5 @@
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2825.65it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 5153.63it/s]
 [1mXLMRobertaModel LOAD REPORT[0m from: sentence-transformers/paraphrase-multilingual-mpnet-base-v2
 Key                     | Status     |  | 
 ------------------------+------------+--+-
@@ -10,10 +10,10 @@ Notes:
  
  -------------- celery@LAPTOP-T6SAPHC1 v5.6.3 (recovery)
 --- ***** ----- 
--- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39 2026-04-07 19:37:47
+-- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39 2026-04-07 20:11:34
 - *** --- * --- 
 - ** ---------- [config]
-- ** ---------- .> app:         docbridge_worker:0x75a9993c5370
+- ** ---------- .> app:         docbridge_worker:0x7a83cab54f20
 - ** ---------- .> transport:   redis://localhost:6379/0
 - ** ---------- .> results:     redis://localhost:6379/0
 - *** --- * --- .> concurrency: 20 (solo)
@@ -26,32 +26,10 @@ Notes:
 [tasks]
   . analyze_document_task
 
-[2026-04-07 19:37:47,120: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2026-04-07 19:37:47,122: INFO/MainProcess] mingle: searching for neighbors
-[2026-04-07 19:37:48,131: INFO/MainProcess] mingle: all alone
-[2026-04-07 19:37:48,149: INFO/MainProcess] celery@LAPTOP-T6SAPHC1 ready.
-[2026-04-07 19:37:48,150: INFO/MainProcess] Task analyze_document_task[ab52d69b-c5c3-4850-ab7e-f4ee7c2df91d] received
-[2026-04-07 19:37:48,186: INFO/MainProcess] Task analyze_document_task[ab52d69b-c5c3-4850-ab7e-f4ee7c2df91d] succeeded in 0.03596552899762173s: {'status': 'error', 'message': '物理穿透 PDF 失败: No /Root object! - Is this really a PDF?'}
-[2026-04-07 19:37:59,130: INFO/MainProcess] Task analyze_document_task[f01ae135-20eb-46be-8f94-639e6f581a22] received
-[2026-04-07 19:37:59,167: INFO/MainProcess] Task analyze_document_task[f01ae135-20eb-46be-8f94-639e6f581a22] succeeded in 0.03672837199701462s: {'status': 'error', 'message': '物理穿透 PDF 失败: No /Root object! - Is this really a PDF?'}
-[2026-04-07 19:39:58,043: INFO/MainProcess] Task analyze_document_task[ff60b31b-da99-4ec8-aa5c-6467880201e9] received
-[2026-04-07 19:40:02,760: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
-[2026-04-07 19:40:07,246: INFO/MainProcess] HTTP Request: POST https://api.siliconflow.cn/v1/chat/completions "HTTP/1.1 200 OK"
-[2026-04-07 19:40:09,242: INFO/MainProcess] Task analyze_document_task[ff60b31b-da99-4ec8-aa5c-6467880201e9] succeeded in 11.225957822000055s: {'status': 'success', 'summary': '文档概述了远东"曙光-3"核聚变实验堆联合开发框架协议的关键条款。项目总投资为80亿人民币，中方出资65%，俄方出资35%。违约方需按日支付0.05%的滞纳金，逾期45天以上需支付项目总额10%的惩罚性违约金。争议解决通过斯德哥尔摩国际仲裁法院，适用瑞士联邦法律。此协议明确了资金与股权结构、违约责任及争议解决机制。', 'risk_points': '风险排雷报告:
-
-1. **违约责任**
-   - **违约金条款**：根据第二条，任何一方未能按期履约，须支付应付款项 0.05% 的滞纳金。若逾期超过 45 天，违约方需支付相当于项目总额 10% 的惩罚性违约金。此条款明确了违约责任，但高额的惩罚性违约金可能对违约方构成较大压力，需谨慎评估违约风险。
-   
-2. **管辖地与争议解决**
-   - **争议解决**：双方同意将争议提交至斯德哥尔摩国际仲裁法院解决。此条款明确了争议解决的机构，但需注意斯德哥尔摩国际仲裁法院的程序复杂性和可能的费用问题。
-   - **法律适用**：本协议适用瑞士联邦法律，排除任何冲突法原则的适用。此条款可能对双方的法律适用产生限制，需确保双方对此条款无异议，并考虑可能的法律冲突问题。
-
-3. **潜在陷阱**
-   - **资金与股权结构**：中方以技术与核心组件入股，占总额的 65%，俄方以土地、配套电网及基础工程材料入股，占总额的 35%。需注意，技术与核心组件的评估和交付可能存在不确定性，且土地、配套电网及基础工程材料的评估和交付也可能存在风险。
-   - **违约金条款**：高额的惩罚性违约金可能对违约方构成较大压力，需谨慎评估违约风险。
-   - **法律适用与争议解决**：适用瑞士联邦法律和提交斯德哥尔摩国际仲裁法院可能对双方产生不利影响，需确保双方对此条款无异议，并考虑可能的法律冲突问题。
-
-以上是根据文档内容提取的三维度风险，建议在项目执行过程中密切关注这些风险点，确保项目的顺利进行。'}
+[2026-04-07 20:11:34,495: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2026-04-07 20:11:34,498: INFO/MainProcess] mingle: searching for neighbors
+[2026-04-07 20:11:35,507: INFO/MainProcess] mingle: all alone
+[2026-04-07 20:11:35,522: INFO/MainProcess] celery@LAPTOP-T6SAPHC1 ready.
 
 worker: Hitting Ctrl+C again will initiate cold shutdown, terminating all running tasks!
 

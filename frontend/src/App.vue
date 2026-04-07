@@ -6,9 +6,9 @@
         <span class="sub-title">情报中枢 v1.0</span>
       </div>
       <el-menu default-active="1" background-color="#2c3e50" text-color="#fff" active-text-color="#409eff">
-        <el-menu-item index="1"><el-icon><Document /></el-icon><span>文档雷达 (RAG)</span></el-menu-item>
-        <el-menu-item index="2"><el-icon><UploadFilled /></el-icon><span>多模态摄入</span></el-menu-item>
-        <el-menu-item index="3"><el-icon><Warning /></el-icon><span>风险拦截网</span></el-menu-item>
+        <el-menu-item index="1" @click="viewGlobalChat = false"><el-icon><Document /></el-icon><span>文档雷达</span></el-menu-item>
+        <el-menu-item index="2" @click="viewGlobalChat = true"><el-icon><Odometer /></el-icon><span style="color:#67c23a; font-weight:bold;">全局统帅部</span></el-menu-item>
+        <el-menu-item index="3"><el-icon><UploadFilled /></el-icon><span>多模态摄入</span></el-menu-item>
       </el-menu>
     </el-aside>
 
@@ -22,10 +22,12 @@
       </el-header>
       
       <el-main class="main-content">
-        <el-card class="box-card">
+        
+        <!-- 文档列表视图 -->
+        <el-card v-if="!viewGlobalChat" class="box-card">
           <template #header>
             <div class="card-header">
-              <span>全语境情报池 (真实数据实时映射)</span>
+              <span>全语境情报池 (支持 PDF, TXT, DOCX, 表格穿透)</span>
               <el-upload action="#" :http-request="customUpload" :show-file-list="false" accept=".pdf,.docx,.txt">
                 <el-button type="primary" :loading="isUploading"><el-icon><Upload /></el-icon> 物理摄入</el-button>
               </el-upload>
@@ -35,7 +37,6 @@
           <el-table :data="tableData" style="width: 100%" stripe>
             <el-table-column prop="id" label="编号" width="70" />
             <el-table-column prop="filename" label="物理文件名" />
-            <el-table-column prop="language" label="语种" width="100" />
             <el-table-column prop="status" label="认知状态" width="160">
               <template #default="scope">
                 <el-tag :type="getStatusType(scope.row.status)">{{ formatStatus(scope.row.status) }}</el-tag>
@@ -52,9 +53,35 @@
           </el-table>
         </el-card>
 
+        <!-- 全局战略统帅部视图 -->
+        <el-card v-if="viewGlobalChat" class="box-card" style="border: 2px solid #67c23a;">
+          <template #header>
+            <div class="card-header">
+              <span style="color:#67c23a; font-size:18px;"><el-icon><Odometer /></el-icon> 全局战略统帅部 (跨文档检索 + 合规隐私屏蔽)</span>
+            </div>
+          </template>
+          <div class="chat-container" style="height: 65vh;">
+            <div class="chat-history">
+              <div v-if="globalChatHistory.length === 0" class="empty-chat">统帅，大模型已加载完毕。您现在的提问将检索所有已摄入的卷宗（自动启动合规拦截网）。</div>
+              <div v-for="(msg, index) in globalChatHistory" :key="index" :class="['chat-bubble-wrapper', msg.role]">
+                <div class="chat-bubble">
+                  <span v-if="msg.role === 'ai'" style="font-weight:bold; color: #409eff; display:block; margin-bottom:5px;">[全局参谋总长]</span>
+                  <span v-else style="font-weight:bold; color: #67c23a; display:block; margin-bottom:5px;">[统帅]</span>
+                  <div style="white-space: pre-wrap; line-height: 1.5;">{{ msg.content }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="chat-input-area">
+              <el-input v-model="globalChatInput" placeholder="输入全局检索指令 (支持中俄英日)... 按回车发送" @keyup.enter="sendGlobalChatMessage" :disabled="isGlobalChatting">
+                <template #append><el-button @click="sendGlobalChatMessage" :loading="isGlobalChatting" type="success">发送指令</el-button></template>
+              </el-input>
+            </div>
+          </div>
+        </el-card>
+
+        <!-- 局部审讯弹窗 -->
         <el-dialog v-model="dialogVisible" :title="'卷宗调阅: ' + currentDocName" width="65%" top="5vh">
           <el-tabs v-model="activeTab" class="custom-tabs">
-            
             <el-tab-pane label="核心简报" name="summary">
               <div v-if="currentResult" class="scroll-pane">
                 <h3 style="color: #409eff;"><el-icon><DataAnalysis /></el-icon> 核心摘要 (Summary)</h3>
@@ -65,10 +92,10 @@
               </div>
             </el-tab-pane>
 
-            <el-tab-pane label="RAG 审讯室" name="chat">
+            <el-tab-pane label="局部审讯室" name="chat">
               <div class="chat-container">
                 <div class="chat-history">
-                  <div v-if="chatHistory.length === 0" class="empty-chat">统帅，大模型已加载完毕。您可以就这份文献提出任何问题。</div>
+                  <div v-if="chatHistory.length === 0" class="empty-chat">统帅，您可以就这份文献提出任何问题。</div>
                   <div v-for="(msg, index) in chatHistory" :key="index" :class="['chat-bubble-wrapper', msg.role]">
                     <div class="chat-bubble">
                       <span v-if="msg.role === 'ai'" style="font-weight:bold; color: #409eff; display:block; margin-bottom:5px;">[AI 参谋]</span>
@@ -78,7 +105,7 @@
                   </div>
                 </div>
                 <div class="chat-input-area">
-                  <el-input v-model="chatInput" placeholder="输入统帅指令 (支持中俄英日)... 按回车发送" @keyup.enter="sendChatMessage" :disabled="isChatting">
+                  <el-input v-model="chatInput" placeholder="按回车发送..." @keyup.enter="sendChatMessage" :disabled="isChatting">
                     <template #append><el-button @click="sendChatMessage" :loading="isChatting" type="primary">发送</el-button></template>
                   </el-input>
                 </div>
@@ -86,7 +113,10 @@
             </el-tab-pane>
           </el-tabs>
         </el-dialog>
+
+        <!-- 战报视窗插件 -->
         <LogViewer />
+
       </el-main>
     </el-container>
   </el-container>
@@ -104,6 +134,8 @@ const tableData = ref([])
 const isUploading = ref(false)
 let pollingTimer = null
 
+const viewGlobalChat = ref(false)
+
 const dialogVisible = ref(false)
 const activeTab = ref('summary')
 const currentResult = ref(null)
@@ -113,6 +145,10 @@ const currentDocName = ref("")
 const chatHistory = ref([])
 const chatInput = ref("")
 const isChatting = ref(false)
+
+const globalChatHistory = ref([])
+const globalChatInput = ref("")
+const isGlobalChatting = ref(false)
 
 const fetchDocuments = async () => {
   try {
@@ -142,30 +178,38 @@ const viewIntelligence = async (row) => {
   } catch (error) { ElMessage.error('调阅失败。') }
 }
 
+// 局部请求
 const sendChatMessage = async () => {
   if (!chatInput.value.trim() || isChatting.value) return;
   const query = chatInput.value
-  
-  // 【战术升级】：在推入新问题前，提取现有历史记录打包发送
   const historyToSend = chatHistory.value.map(item => ({ role: item.role, content: item.content }))
-  
   chatHistory.value.push({ role: 'user', content: query })
   chatInput.value = ""; isChatting.value = true
   try {
-    const res = await axios.post(`${API_BASE_URL}/documents/${currentDocId.value}/chat`, { 
-        query: query,
-        history: historyToSend  // 发送历史矩阵
-    })
+    const res = await axios.post(`${API_BASE_URL}/chat`, { query: query, document_id: currentDocId.value, history: historyToSend })
     if (res.data.status === 'success') chatHistory.value.push({ role: 'ai', content: res.data.answer })
-  } catch (error) { chatHistory.value.push({ role: 'ai', content: '【通讯中断】未能获取大模型响应。' }) }
+  } catch (error) { chatHistory.value.push({ role: 'ai', content: '【通讯中断】' }) }
   finally { isChatting.value = false }
 }
 
-const formatStatus = (status) => {
-  const map = { 'uploaded': '待命', 'processing': '劳工解析中...', 'completed': '认知完成', 'failed_auth': '阻断(需核查日志)', 'failed': '解析溃散' }
-  return map[status] || status
+// 全局请求
+const sendGlobalChatMessage = async () => {
+  if (!globalChatInput.value.trim() || isGlobalChatting.value) return;
+  const query = globalChatInput.value
+  const historyToSend = globalChatHistory.value.map(item => ({ role: item.role, content: item.content }))
+  globalChatHistory.value.push({ role: 'user', content: query })
+  globalChatInput.value = ""; isGlobalChatting.value = true
+  try {
+    const res = await axios.post(`${API_BASE_URL}/chat`, { query: query, history: historyToSend })
+    if (res.data.status === 'success') globalChatHistory.value.push({ role: 'ai', content: res.data.answer })
+  } catch (error) { globalChatHistory.value.push({ role: 'ai', content: '【通讯中断】' }) }
+  finally { isGlobalChatting.value = false }
 }
 
+const formatStatus = (status) => {
+  const map = { 'uploaded': '待命', 'processing': '劳工解析中...', 'completed': '认知完成', 'failed_auth': '阻断(核查日志)', 'failed': '解析溃散' }
+  return map[status] || status
+}
 const getStatusType = (status) => {
   const map = { 'processing': 'warning', 'completed': 'success', 'failed_auth': 'danger', 'failed': 'danger', 'uploaded': 'info' }
   return map[status] || 'info'
