@@ -1,5 +1,5 @@
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 5153.63it/s]
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 14628.90it/s]
 [1mXLMRobertaModel LOAD REPORT[0m from: sentence-transformers/paraphrase-multilingual-mpnet-base-v2
 Key                     | Status     |  | 
 ------------------------+------------+--+-
@@ -10,10 +10,10 @@ Notes:
  
  -------------- celery@LAPTOP-T6SAPHC1 v5.6.3 (recovery)
 --- ***** ----- 
--- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39 2026-04-07 20:11:34
+-- ******* ---- Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39 2026-04-07 21:57:24
 - *** --- * --- 
 - ** ---------- [config]
-- ** ---------- .> app:         docbridge_worker:0x7a83cab54f20
+- ** ---------- .> app:         docbridge_worker:0x7c61c6d02630
 - ** ---------- .> transport:   redis://localhost:6379/0
 - ** ---------- .> results:     redis://localhost:6379/0
 - *** --- * --- .> concurrency: 20 (solo)
@@ -26,10 +26,10 @@ Notes:
 [tasks]
   . analyze_document_task
 
-[2026-04-07 20:11:34,495: INFO/MainProcess] Connected to redis://localhost:6379/0
-[2026-04-07 20:11:34,498: INFO/MainProcess] mingle: searching for neighbors
-[2026-04-07 20:11:35,507: INFO/MainProcess] mingle: all alone
-[2026-04-07 20:11:35,522: INFO/MainProcess] celery@LAPTOP-T6SAPHC1 ready.
+[2026-04-07 21:57:24,334: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2026-04-07 21:57:24,339: INFO/MainProcess] mingle: searching for neighbors
+[2026-04-07 21:57:25,349: INFO/MainProcess] mingle: all alone
+[2026-04-07 21:57:25,364: INFO/MainProcess] celery@LAPTOP-T6SAPHC1 ready.
 
 worker: Hitting Ctrl+C again will initiate cold shutdown, terminating all running tasks!
 

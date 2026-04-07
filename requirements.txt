@@ -5,6 +5,7 @@ annotated-doc==0.0.4
 annotated-types==0.7.0
 anyio==4.13.0
 asyncpg==0.31.0
+bcrypt==3.2.2
 billiard==4.2.4
 celery==5.6.3
 certifi==2026.2.25
@@ -19,6 +20,7 @@ cuda-bindings==13.2.0
 cuda-pathfinder==1.5.1
 cuda-toolkit==13.0.2
 distro==1.9.0
+ecdsa==0.19.2
 fastapi==0.135.3
 filelock==3.25.2
 filetype==1.2.0
@@ -76,6 +78,7 @@ openai==2.30.0
 orjson==3.11.8
 ormsgpack==1.12.2
 packaging==26.0
+passlib==1.7.4
 pdfminer.six==20251230
 pdfplumber==0.11.9
 pgvector==0.4.2
@@ -91,6 +94,7 @@ pypdfium2==5.6.0
 python-dateutil==2.9.0.post0
 python-docx==1.2.0
 python-dotenv==1.2.2
+python-jose==3.5.0
 python-multipart==0.0.24
 PyYAML==6.0.3
 redis==7.4.0
@@ -98,6 +102,7 @@ regex==2026.4.4
 requests==2.33.1
 requests-toolbelt==1.0.0
 rich==14.3.3
+rsa==4.9.1
 safetensors==0.7.0
 scikit-learn==1.8.0
 scipy==1.17.1
