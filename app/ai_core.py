@@ -1,23 +1,33 @@
 import os
 from dotenv import load_dotenv
-from langchain_google_genai import ChatGoogleGenerativeAI
-# 引入本地开源折叠枪
+from langchain_openai import ChatOpenAI
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-# 读取隐身斗篷中的机密
+# 揭开隐身斗篷，自动吸入 .env 中的变量
 load_dotenv()
 
-# 1. 文本主炮：继续白嫖谷歌的 2.5 世代极速旗舰
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+# 从环境变量中提取密钥，实现兵符分离
+SILICONFLOW_API_KEY = os.getenv("SILICONFLOW_API_KEY")
+if not SILICONFLOW_API_KEY:
+    raise ValueError("未在 .env 中寻获 SILICONFLOW_API_KEY！")
 
-# 2. 高维折叠枪：彻底换装本地 1GB 大小的多语种开源神器！
-# (首次运行时，它会在后台自动下载大约 1.1GB 的模型文件，请耐心等待)
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-mpnet-base-v2")
+# 1. 文本主炮：硅基流动 Qwen2.5-7B (免费，极速，多语种巅峰)
+llm = ChatOpenAI(
+    model="Qwen/Qwen2.5-7B-Instruct",
+    api_key=SILICONFLOW_API_KEY,
+    base_url="https://api.siliconflow.cn/v1",
+    temperature=0
+)
+
+# 2. 高维折叠枪：本地 768 维神兵 (强制 CPU 运行，防止克隆崩溃)
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+    model_kwargs={'device': 'cpu'}
+)
 
 def get_embeddings():
-    """向外界提供折叠枪"""
     return embeddings
 
 def build_summary_chain():
@@ -53,9 +63,6 @@ def build_risk_chain():
     return prompt | llm | StrOutputParser()
 
 def build_qa_chain():
-    """
-    第三道管线：基于向量检索的 RAG 审讯链
-    """
     prompt_template = """
     统帅指令：你现在是 DocBridge AI 的首席情报官。
     请根据以下提取的【文档参考片段】，回答统帅的【提问】。

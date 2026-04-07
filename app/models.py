@@ -1,46 +1,43 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, JSON
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 from sqlalchemy.orm import relationship
-from datetime import datetime
-from pgvector.sqlalchemy import Vector  # 【新增】引入高维向量装甲
-
+from sqlalchemy.sql import func
+from sqlalchemy.dialects.postgresql import JSONB
+from pgvector.sqlalchemy import Vector
 from .database import Base
 
 class Document(Base):
     __tablename__ = "documents"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(255), index=True)
-    filename = Column(String(255))
-    file_path = Column(String(500))
-    language = Column(String(50), default="unknown")
-    status = Column(String(50), default="uploaded")
-    created_at = Column(DateTime, default=datetime.utcnow)
+    title = Column(String, index=True)
+    filename = Column(String)
+    file_path = Column(String)
+    language = Column(String, default="unknown")
+    status = Column(String, default="uploaded")
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    # 建立与分析结果、以及切片的级联关系
-    analysis = relationship("AnalysisResult", back_populates="document", uselist=False, cascade="all, delete-orphan")
-    chunks = relationship("DocumentChunk", back_populates="document", cascade="all, delete-orphan")
+    analysis_result = relationship("AnalysisResult", back_populates="document", uselist=False)
+    chunks = relationship("DocumentChunk", back_populates="document")
 
 class AnalysisResult(Base):
     __tablename__ = "analysis_results"
 
     id = Column(Integer, primary_key=True, index=True)
-    document_id = Column(Integer, ForeignKey("documents.id", ondelete="CASCADE"), unique=True)
+    document_id = Column(Integer, ForeignKey("documents.id"))
     summary = Column(Text)
-    risk_points = Column(JSON)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    risk_points = Column(JSONB)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    document = relationship("Document", back_populates="analysis")
+    document = relationship("Document", back_populates="analysis_result")
 
-# 【全新法阵】：文档切片与向量坐标表
 class DocumentChunk(Base):
     __tablename__ = "document_chunks"
 
     id = Column(Integer, primary_key=True, index=True)
-    document_id = Column(Integer, ForeignKey("documents.id", ondelete="CASCADE"))
-    chunk_index = Column(Integer, comment="切片序号")
-    text_content = Column(Text, comment="切片物理文本")
-    
-    # 核心武器：存储 1536 维度的浮点数坐标 (适配 OpenAI 的 text-embedding-3-small 模型)
-    embedding = Column(Vector(1536), comment="高维数学坐标")
+    document_id = Column(Integer, ForeignKey("documents.id"))
+    chunk_index = Column(Integer)
+    text_content = Column(Text)
+    # 【重大修正】：1536 改为 768，匹配本地神兵！
+    embedding = Column(Vector(768))
 
     document = relationship("Document", back_populates="chunks")

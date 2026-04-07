@@ -52,7 +52,6 @@
           </el-table>
         </el-card>
 
-        <!-- 【震撼升级】：带页签的全息审讯弹窗 -->
         <el-dialog v-model="dialogVisible" :title="'卷宗调阅: ' + currentDocName" width="65%" top="5vh">
           <el-tabs v-model="activeTab" class="custom-tabs">
             
@@ -100,6 +99,9 @@
           </el-tabs>
         </el-dialog>
 
+        <!-- 悬浮战报视窗插件 -->
+        <LogViewer />
+
       </el-main>
     </el-container>
   </el-container>
@@ -109,6 +111,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import LogViewer from './components/LogViewer.vue'
 
 const API_BASE_URL = 'http://127.0.0.1:8000/api/v1'
 

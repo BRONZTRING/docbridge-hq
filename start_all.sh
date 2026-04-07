@@ -1,38 +1,40 @@
 #!/bin/bash
 
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-NC='\033[0m'
+echo "==========================================="
+echo "  DocBridge AI 情报中枢 - 全维阵列启动程序 "
+echo "==========================================="
 
-echo -e "${GREEN}===========================================${NC}"
-echo -e "${GREEN}  DocBridge AI 情报中枢 - 全维阵列启动程序 ${NC}"
-echo -e "${GREEN}===========================================${NC}"
+# 【新增：自动化战前清场】
+# || true 的意思是：就算没找到对应的进程也不报错，继续往下执行
+echo "[0/3] 执行战前清场，斩杀潜伏的僵尸进程..."
+pkill -9 -f uvicorn || true
+pkill -9 -f celery || true
+sleep 1
 
-# 建立战报存放营帐
+# 确保日志目录存在
 mkdir -p logs
 
-echo -e "${GREEN}[1/3] 激活 Python 隔离区...${NC}"
+echo "[1/3] 激活 Python 隔离区..."
 source venv/bin/activate
 
-echo -e "${GREEN}[2/3] 点火 FastAPI 战略网关 (战报记录于 logs/gateway.log)...${NC}"
-uvicorn app.main:app --reload --port 8000 > logs/gateway.log 2>&1 &
-UVICORN_PID=$!
+echo "[2/3] 点火 FastAPI 战略网关 (战报记录于 logs/gateway.log)..."
+nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 > logs/gateway.log 2>&1 &
 
-echo -e "${GREEN}[3/3] 唤醒 Celery 异步劳工 (战报记录于 logs/worker.log)...${NC}"
-celery -A app.worker.celery_app worker --loglevel=info > logs/worker.log 2>&1 &
-CELERY_PID=$!
+echo "[3/3] 唤醒 Celery 异步劳工 (战报记录于 logs/worker.log)..."
+# 【关键防线：--pool=solo 强制单兵作战，彻底规避异步时空错乱】
+nohup celery -A app.worker worker --pool=solo --loglevel=info > logs/worker.log 2>&1 &
 
-echo -e "${GREEN}[准备] 展开 Vue3 战术大屏 (战报记录于 logs/frontend.log)...${NC}"
-cd frontend && npm run dev > ../logs/frontend.log 2>&1 &
-VITE_PID=$!
+echo "[准备] 展开 Vue3 战术大屏 (战报记录于 logs/frontend.log)..."
+cd frontend
+nohup npm run dev > ../logs/frontend.log 2>&1 &
 cd ..
 
-echo -e "${GREEN}===========================================${NC}"
-echo -e "${GREEN}✅ 三路大军已就位！${NC}"
-echo -e "${GREEN}🌐 前端雷达: http://localhost:5173${NC}"
-echo -e "${GREEN}📖 查看劳工战报: 请新开一个终端执行 ${RED}tail -f logs/worker.log${GREEN} ${NC}"
-echo -e "${RED}⚠️  按 Ctrl + C 收兵 ${NC}"
-echo -e "${GREEN}===========================================${NC}"
+echo "==========================================="
+echo "✅ 三路大军已就位！"
+echo "🌐 前端雷达: http://localhost:5173"
+echo "📖 查看劳工战报: 请新开一个终端执行 tail -f logs/worker.log "
+echo "⚠️  按 Ctrl + C 收兵"
+echo "==========================================="
 
-trap "echo -e '\n${RED}>>> 统帅下令收兵！正在清理战场...${NC}'; kill $UVICORN_PID $CELERY_PID $VITE_PID; exit" SIGINT SIGTERM
+# 保持脚本运行
 wait
